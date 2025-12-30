@@ -268,7 +268,7 @@ const LandingPage = () => {
 		<>
 			<SEO />
 			<Head>
-				<title>SAAS Starter - Build Your SaaS 10x Faster</title>
+				<title>Buildsaas - Build Your SaaS in Minutes</title>
 				<meta
 					name="description"
 					content="Complete SaaS boilerplate with authentication, payments, admin panel, and more. Get started in minutes, not months."
@@ -283,7 +283,7 @@ const LandingPage = () => {
 							<div className="flex items-center gap-2">
 								<Rocket className="w-5 h-5 text-zinc-900" />
 								<h1 className="text-lg font-bold text-zinc-900">
-									SAAS Starter
+									Buildsaas
 								</h1>
 							</div>
 							<motion.a
