@@ -14,7 +14,8 @@ export default function Document() {
 			<Head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<link rel="icon" href="/favicon.ico" />
+				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+				<link rel="alternate icon" href="/favicon.ico" />
 
 				{/* Base meta tags - route-specific tags are handled in lib/modules/SEO */}
 				<meta name="theme-color" content="#18181b" />

@@ -235,6 +235,20 @@ const LandingPage = () => {
 					name="description"
 					content="Complete SaaS boilerplate with authentication, payments, admin panel, and more. Get started in minutes, not months."
 				/>
+				{/* Open Graph / Facebook */}
+				<meta
+					property="og:image"
+					content="https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYo9pGrkQGL8ds7z9t2vD05fIReEJKO3Cy1jZP"
+				/>
+				<meta property="og:image:width" content="1200" />
+				<meta property="og:image:height" content="630" />
+				<meta property="og:image:type" content="image/png" />
+				{/* Twitter */}
+				<meta name="twitter:card" content="summary_large_image" />
+				<meta
+					name="twitter:image"
+					content="https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYo9pGrkQGL8ds7z9t2vD05fIReEJKO3Cy1jZP"
+				/>
 			</Head>
 
 			<div className="min-h-screen bg-white font-mono">
