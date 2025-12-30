@@ -1,275 +1,556 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import Navbar from "../app/components/Navbar";
-import Footer from "../app/components/Footer";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-	ArrowRight,
-	Check,
-	Zap,
-	Shield,
 	Rocket,
-	Sparkles,
-	Database,
-	CreditCard,
-	Users,
-	BarChart3,
+	Check,
+	ArrowRight,
 	ChevronDown,
 	ChevronUp,
-	Send,
+	Twitter,
 	Mail,
-	MessageSquare,
+	Zap,
+	Shield,
+	CreditCard,
+	Database,
+	Mail as MailIcon,
+	Settings,
+	Code2,
+	Globe,
+	FileText,
+	Users,
+	Lock,
+	Sparkles,
+	Send,
+	BookOpen,
+	Monitor,
+	RefreshCw,
+	X,
+	ShieldCheck,
+	Scale,
+	Play,
+	Clock,
 } from "lucide-react";
-import Link from "next/link";
-import { toast } from "react-toastify";
+import SEO from "../lib/modules/SEO";
 
-const HomePage = () => {
+const LandingPage = () => {
 	const [expandedFaq, setExpandedFaq] = useState(null);
-	const [contactForm, setContactForm] = useState({
-		name: "",
-		email: "",
-		subject: "",
-		message: "",
-	});
-	const [isSubmittingContact, setIsSubmittingContact] = useState(false);
+	const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+	const [showLegalModal, setShowLegalModal] = useState(false);
+
+	const techStack = [
+		{
+			name: "Next.js",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYmo2uXr5dTRYUQ1ZJNSXlV8uxqtfcEz9rp62L",
+			link: "https://nextjs.org",
+		},
+		{
+			name: "Stripe",
+			link: "https://stripe.com",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYnDGvbbaFQlNLrmkEMC8dWyZ6SRh5OUeiAcGg",
+		},
+		{
+			name: "Supabase",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRY3eNktrqCWeogKhF19bTi7I6zQ0q8EafskJrG",
+			link: "https://supabase.com",
+		},
+		{
+			name: "Resend",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYcOv0UqAEYCMdAPzJlq68Keyf0NtwGT9LgOXu",
+			link: "https://supabase.com",
+		},
+		{
+			name: "TanStack",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYiQ5wM8lKavenfPpi3Zb1mAg4d50CY2RWLOsk",
+			link: "https://tanstack.com",
+		},
+		{
+			name: "Tailwind",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYobgAXeQGL8ds7z9t2vD05fIReEJKO3Cy1jZP",
+			link: "https://tailwindcss.com",
+		},
+		{
+			name: "Tiptap",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYCkGejb99lEJVSgFcNYy6WDRowUt2QGLmhdeM",
+			link: "https://tiptap.dev",
+		},
+	];
 
 	const features = [
 		{
 			icon: Zap,
-			title: "Lightning Fast Performance",
-			description:
-				"Built with Next.js 15 and React 18 for optimal performance and SEO.",
+			title: "Lightning Fast",
+			description: "Built with Next.js 15 for optimal performance",
 		},
 		{
 			icon: Shield,
 			title: "Secure Authentication",
-			description:
-				"Complete authentication system with email/password and Google OAuth.",
+			description: "Complete auth system with Firebase",
 		},
 		{
 			icon: CreditCard,
 			title: "Payment Integration",
-			description:
-				"Seamless payment processing with Polar. Subscription management built-in.",
+			description: "Stripe integration ready to use",
 		},
 		{
 			icon: Database,
-			title: "Database Ready",
-			description:
-				"Firebase Firestore integration with Supabase alternative included.",
+			title: "Database Setup",
+			description: "Firestore configured and ready",
+		},
+		{
+			icon: MailIcon,
+			title: "Email System",
+			description: "Resend integration for emails",
+		},
+		{
+			icon: Settings,
+			title: "Admin Panel",
+			description: "Complete admin dashboard included",
+		},
+		{
+			icon: Code2,
+			title: "Clean Code",
+			description: "Well-structured and documented",
+		},
+		{
+			icon: Globe,
+			title: "SEO Ready",
+			description: "SEO optimization built-in",
+		},
+		{
+			icon: FileText,
+			title: "Documentation",
+			description: "Comprehensive docs included",
 		},
 		{
 			icon: Users,
 			title: "User Management",
-			description:
-				"Complete user management system with teams, roles, and permissions.",
+			description: "Complete user system",
 		},
 		{
-			icon: BarChart3,
-			title: "Analytics Dashboard",
-			description:
-				"Beautiful analytics dashboard with charts and metrics included.",
-		},
-		{
-			icon: Rocket,
-			title: "Scalable Architecture",
-			description:
-				"Built to scale from startup to enterprise with clean architecture.",
+			icon: Lock,
+			title: "Security",
+			description: "Best practices implemented",
 		},
 		{
 			icon: Sparkles,
-			title: "Modern UI/UX",
-			description:
-				"Beautiful, responsive design with Tailwind CSS and Framer Motion.",
+			title: "Modern UI",
+			description: "Beautiful, responsive design",
 		},
 	];
 
-	const plans = [
-		{
-			id: "pro-monthly",
-			name: "Pro",
-			price: "$29",
-			period: "month",
-			description: "Perfect for individuals and small teams",
-			features: [
-				"All core features",
-				"Priority support",
-				"Advanced analytics",
-				"Custom integrations",
-				"API access",
-			],
-			popular: true,
-		},
-		{
-			id: "pro-yearly",
-			name: "Pro",
-			price: "$290",
-			period: "year",
-			description: "Best value for long-term users",
-			features: [
-				"All Pro features",
-				"2 months free",
-				"Priority support",
-				"Advanced analytics",
-				"Custom integrations",
-				"API access",
-			],
-			popular: false,
-		},
+	const pricingFeatures = [
+		{ text: "Complete Next.js 15 boilerplate", icon: Rocket },
+		{ text: "Firebase Authentication setup", icon: Shield },
+		{ text: "Stripe payment integration", icon: CreditCard },
+		{ text: "Resend email integration", icon: MailIcon },
+		{ text: "Admin dashboard with all features", icon: Settings },
+		{ text: "Blog system with editor", icon: FileText },
+		{ text: "Email newsletter system", icon: Send },
+		{ text: "User management system", icon: Users },
+		{ text: "SEO optimization", icon: Globe },
+		{ text: "Comprehensive documentation", icon: BookOpen },
+		{ text: "Clean, maintainable code", icon: Code2 },
+		{ text: "Responsive design", icon: Monitor },
+		{ text: "All future updates included", icon: RefreshCw },
 	];
 
 	const faqs = [
 		{
-			question: "What's included in the template?",
+			id: 1,
+			question: "What's included in the purchase?",
 			answer:
-				"The template includes a complete admin panel, customer-facing app, authentication, payment integration, blog system, email management, and analytics dashboard. Everything you need to launch your SaaS product.",
+				"You get the complete source code, documentation, and all future updates. Everything you need to build your SaaS application.",
 		},
 		{
-			question: "Do I need coding experience?",
+			id: 2,
+			question: "Do I need to know coding?",
 			answer:
-				"Basic knowledge of JavaScript and React is helpful, but the template is well-documented with clear instructions. You can customize it to match your brand with minimal coding.",
+				"Basic knowledge of JavaScript and React is recommended. The code is well-documented and easy to understand.",
 		},
 		{
-			question: "Can I use my own backend?",
+			id: 3,
+			question: "Can I customize it?",
 			answer:
-				"Yes! The template works with Firebase, Supabase, or any backend API. You can easily swap out the database and API integrations to match your preferences.",
+				"Yes! The code is yours to modify, customize, and use however you want. No restrictions. You can change colors, add features, remove components, or completely rebrand it.",
 		},
 		{
-			question: "Is there support included?",
+			id: 4,
+			question: "What about updates?",
 			answer:
-				"The template includes comprehensive documentation and code comments. For additional support, check the template documentation or reach out through our contact form.",
+				"All future updates and improvements are included in your one-time payment. You'll have access to everything.",
 		},
 		{
-			question: "How do I customize the design?",
+			id: 5,
+			question: "Is support included?",
 			answer:
-				"The entire design is built with Tailwind CSS, making it easy to customize colors, fonts, spacing, and layouts. All components are modular and well-organized.",
+				"The code is well-documented. For additional support, you can reach out via email.",
 		},
 		{
-			question: "What payment methods are supported?",
+			id: 6,
+			question: "Can I use it for commercial projects?",
 			answer:
-				"The template integrates with Polar for payment processing, supporting credit cards and other payment methods through their platform.",
+				"Absolutely! Once purchased, you can use it for any commercial or personal project without restrictions.",
+		},
+		{
+			id: 7,
+			question: "Where can I find the documentation?",
+			answer:
+				"Complete documentation is included in the repository and available at the demo site. It covers setup, configuration, customization, API usage, and deployment instructions.",
+		},
+		{
+			id: 8,
+			question: "How do I customize the design and branding?",
+			answer:
+				"You can easily customize colors, fonts, logos, and styling through Tailwind CSS classes. The codebase is well-organized with reusable components, making it simple to modify the UI to match your brand.",
+		},
+		{
+			id: 9,
+			question: "Can I add my own features to the starter?",
+			answer:
+				"Yes! The codebase is structured for easy extension. You can add new pages, components, API routes, and features. The architecture follows Next.js best practices, making it straightforward to build upon.",
+		},
+		{
+			id: 10,
+			question: "How long does it take to set up?",
+			answer:
+				"With the comprehensive documentation, you can have the starter running locally in under 30 minutes. Full deployment with Firebase and Stripe configuration typically takes 1-2 hours depending on your experience level.",
+		},
+		{
+			id: 11,
+			question: "Do I need separate accounts for Firebase, Stripe, and Resend?",
+			answer:
+				"Yes, you'll need to create free accounts with Firebase (for authentication and database), Stripe (for payments), and Resend (for emails). The documentation includes step-by-step setup guides for each service.",
 		},
 	];
 
-	const handleContactSubmit = async (e) => {
-		e.preventDefault();
-		setIsSubmittingContact(true);
-
-		try {
-			const response = await fetch("/api/messages/create", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(contactForm),
-			});
-
-			const data = await response.json();
-
-			if (response.ok) {
-				toast.success("Message sent successfully! We'll get back to you soon.");
-				setContactForm({ name: "", email: "", subject: "", message: "" });
-			} else {
-				throw new Error(data.error || "Failed to send message");
-			}
-		} catch (error) {
-			console.error("Error sending message:", error);
-			toast.error(error.message || "Failed to send message. Please try again.");
-		} finally {
-			setIsSubmittingContact(false);
-		}
-	};
-
 	return (
 		<>
+			<SEO />
 			<Head>
-				<title>YourApp - Build Amazing SaaS Products Faster</title>
+				<title>SAAS Starter - Build Your SaaS 10x Faster</title>
 				<meta
 					name="description"
-					content="SaaS starter template to build amazing products faster. Includes authentication, payments, and more."
+					content="Complete SaaS boilerplate with authentication, payments, admin panel, and more. Get started in minutes, not months."
 				/>
 			</Head>
-			<div className="min-h-screen flex flex-col">
-				<Navbar />
 
-				{/* Hero Section */}
-				<section className="flex-1 py-20 px-4 sm:px-6 lg:px-8">
-					<div className="max-w-4xl mx-auto text-center">
-						<motion.h1
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5 }}
-							className="text-4xl sm:text-5xl lg:text-6xl font-bold text-zinc-900 mb-6"
-						>
-							Build Amazing SaaS Products{" "}
-							<span className="text-zinc-600">Faster</span>
-						</motion.h1>
-						<motion.p
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5, delay: 0.1 }}
-							className="text-lg text-zinc-600 mb-8 max-w-2xl mx-auto"
-						>
-							Start building your SaaS product today with our complete starter
-							template. Includes authentication, payments, admin panel, and
-							more.
-						</motion.p>
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5, delay: 0.2 }}
-							className="flex flex-col sm:flex-row items-center justify-center gap-4"
-						>
-							<Link
-								href="/pricing"
-								className="inline-flex items-center gap-2 px-6 py-3 bg-zinc-900 text-white rounded-xl font-medium hover:bg-zinc-800 transition-colors"
+			<div className="min-h-screen bg-white font-mono">
+				{/* Header */}
+				<header className="border-b border-zinc-200">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+						<div className="flex items-center justify-between">
+							<div className="flex items-center gap-2">
+								<Rocket className="w-5 h-5 text-zinc-900" />
+								<h1 className="text-lg font-bold text-zinc-900">
+									SAAS Starter
+								</h1>
+							</div>
+							<motion.a
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
+								target="_blank"
+								rel="noopener noreferrer"
+								className="px-4 py-1.5 bg-zinc-900 text-white rounded-xl text-sm font-medium hover:bg-zinc-800 transition-colors"
 							>
-								Get Started
-								<ArrowRight className="w-4 h-4" />
-							</Link>
-							<Link
-								href="/docs"
-								className="inline-flex items-center gap-2 px-6 py-3 border border-zinc-200 text-zinc-900 rounded-xl font-medium hover:bg-zinc-50 transition-colors"
-							>
-								Learn More
-							</Link>
-						</motion.div>
+								Buy Now
+							</motion.a>
+						</div>
 					</div>
+				</header>
+
+				{/* Banner Section */}
+				<section className="py-20">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-12">
+							{/* Left Column - Title and Description */}
+							<div>
+								<motion.h1
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6 }}
+									className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4"
+								>
+									Build SAAS App
+									<br />
+									<span className="text-zinc-600">10x Faster</span>
+								</motion.h1>
+								<motion.p
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6, delay: 0.2 }}
+									className="text-base text-zinc-600"
+								>
+									Complete SaaS boilerplate with everything you need. Get
+									started in minutes, build any SAAS application to start
+									earning online, content website, SAAS application, aggregator
+									platforms, newsletter etc
+								</motion.p>
+								{/* CTA Buttons */}
+								<motion.div
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.6, delay: 0.8 }}
+									className="flex flex-col sm:flex-row items-center justify-start gap-3 mt-6"
+								>
+									<motion.a
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="px-6 py-2 bg-green-200 text-black border border-black rounded-xl text-sm font-medium hover:bg-green-800 hover:text-white transition-colors flex items-center gap-3"
+									>
+										Buy SAAS Starter Kit
+										<ArrowRight className="w-3.5 h-3.5" />
+									</motion.a>
+								</motion.div>
+								<motion.div className="flex flex-col sm:flex-row items-center justify-start gap-3 my-2">
+									<motion.a
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										href="https://buildsaas-s18e.vercel.app/"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="px-6 py-2 bg-purple-100 text-zinc-900 rounded-xl text-sm font-medium hover:bg-zinc-200 transition-colors flex items-center gap-2"
+									>
+										<Play className="w-3.5 h-3.5" />
+										Try Demo
+									</motion.a>
+									<motion.a
+										whileHover={{ scale: 1.05 }}
+										whileTap={{ scale: 0.95 }}
+										href="https://buildsaas-s18e.vercel.app/docs"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="px-6 py-2 bg-zinc-100 text-zinc-900 rounded-xl text-sm font-medium hover:bg-zinc-200 transition-colors flex items-center gap-2"
+									>
+										<FileText className="w-3.5 h-3.5" />
+										View Docs
+									</motion.a>
+								</motion.div>
+							</div>
+
+							{/* Right Column - Banner Image Placeholder */}
+							<motion.div
+								initial={{ opacity: 0, scale: 0.95 }}
+								animate={{ opacity: 1, scale: 1 }}
+								transition={{ duration: 0.6, delay: 0.4 }}
+								className="bg-zinc-200 rounded-2xl h-48 md:h-64 flex items-center justify-center"
+							>
+								<img
+									src="https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYo9pGrkQGL8ds7z9t2vD05fIReEJKO3Cy1jZP"
+									className=" border border-zinc-200 rounded-xl"
+								/>
+							</motion.div>
+						</div>
+					</div>
+					{/* Tech Stack */}
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, delay: 0.6 }}
+						className="mt-12"
+					>
+						<h2 className="text-xl font-semibold text-zinc-900 text-center mb-6">
+							Powered by Modern Tech Stack
+						</h2>
+						<div className="flex flex-wrap items-center justify-center gap-6">
+							{techStack.map((tech, index) => (
+								<motion.a
+									key={tech.name}
+									href={tech.link}
+									target="_blank"
+									rel="noopener noreferrer"
+									initial={{ opacity: 0, scale: 0.8 }}
+									animate={{ opacity: 1, scale: 1 }}
+									transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+									whileHover={{ scale: 1.1 }}
+									className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity"
+								>
+									{tech.logo.startsWith("http") ? (
+										<img
+											src={tech.logo}
+											alt={tech.name}
+											className="w-12 h-12 object-contain"
+										/>
+									) : (
+										<div className="text-3xl">{tech.logo}</div>
+									)}
+									<span className="text-xs font-medium text-zinc-700">
+										{tech.name}
+									</span>
+								</motion.a>
+							))}
+						</div>
+					</motion.div>
+
+					{/* Time Saved Section */}
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, delay: 0.8 }}
+						className="mt-12 mb-12"
+					>
+						<div className="max-w-4xl mx-auto">
+							<div className="bg-white border-2 border-zinc-900 rounded-2xl p-6 shadow-lg">
+								<div className="text-center mb-6">
+									<div className="flex items-center justify-center gap-2 mb-2">
+										<Clock className="w-5 h-5 text-zinc-900" />
+										<h3 className="text-xl font-bold text-zinc-900">
+											Time Saved with SAAS Starter
+										</h3>
+									</div>
+									<p className="text-sm text-zinc-600">
+										Hours of development time you save by using our boilerplate
+									</p>
+								</div>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 0.9 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											8+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											Next.js setup, routing & configuration
+										</div>
+									</motion.div>
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 1.0 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											6+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											Authentication (Email/Password & Google OAuth)
+										</div>
+									</motion.div>
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 1.1 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											5+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											Resend email API, templates & webhooks
+										</div>
+									</motion.div>
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 1.2 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											15+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											Stripe payment integration & webhooks
+										</div>
+									</motion.div>
+								</div>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 1.3 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											12+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											Admin panel with tables (Customers, Payments,
+											Subscriptions)
+										</div>
+									</motion.div>
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 1.4 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											4+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											Blog system with Tiptap editor
+										</div>
+									</motion.div>
+									<motion.div
+										initial={{ opacity: 0, scale: 0.9 }}
+										animate={{ opacity: 1, scale: 1 }}
+										transition={{ duration: 0.4, delay: 1.5 }}
+										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+									>
+										<div className="text-2xl font-bold text-zinc-900 mb-1">
+											10+ hours
+										</div>
+										<div className="text-xs text-zinc-600">
+											SEO setup, documentation & deployment
+										</div>
+									</motion.div>
+								</div>
+								<div className="mt-6 text-center">
+									<div className="text-lg font-bold text-zinc-900">
+										Total: <span className="text-2xl">50+ hours</span> saved
+									</div>
+									<p className="text-xs text-zinc-600 mt-1">
+										Start building your features instead of boilerplate code
+									</p>
+								</div>
+							</div>
+						</div>
+					</motion.div>
 				</section>
 
 				{/* Features Section */}
-				<section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-50">
-					<div className="max-w-6xl mx-auto">
+				<section className="py-20 bg-white">
+					<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
-							<h2 className="text-3xl font-bold text-zinc-900 mb-4">
+							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								Everything You Need
 							</h2>
-							<p className="text-zinc-600 max-w-2xl mx-auto">
-								All the essential features to launch your SaaS product quickly
-								and efficiently.
+							<p className="text-base text-zinc-600">
+								Complete SaaS boilerplate with all essential features
 							</p>
 						</div>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 							{features.map((feature, index) => {
-								const Icon = feature.icon;
+								const IconComponent = feature.icon;
 								return (
 									<motion.div
-										key={index}
+										key={feature.title}
 										initial={{ opacity: 0, y: 20 }}
-										whileInView={{ opacity: 1, y: 0 }}
-										viewport={{ once: true }}
-										transition={{ delay: index * 0.1 }}
-										className="p-6 bg-white border border-zinc-200 rounded-xl hover:border-zinc-300 transition-colors"
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.4, delay: index * 0.1 }}
+										className="p-4 border border-zinc-200 rounded-xl hover:border-zinc-300 transition-colors"
 									>
-										<div className="p-3 bg-zinc-900 text-white rounded-xl w-fit mb-4">
-											<Icon className="w-5 h-5" />
+										<div className="flex items-start gap-3">
+											<div className="p-1.5 bg-zinc-100 rounded-xl">
+												<IconComponent className="w-5 h-5 text-zinc-900" />
+											</div>
+											<div>
+												<h3 className="text-sm font-semibold text-zinc-900 mb-1">
+													{feature.title}
+												</h3>
+												<p className="text-zinc-600 text-xs">
+													{feature.description}
+												</p>
+											</div>
 										</div>
-										<h3 className="text-lg font-semibold text-zinc-900 mb-2">
-											{feature.title}
-										</h3>
-										<p className="text-sm text-zinc-600">
-											{feature.description}
-										</p>
 									</motion.div>
 								);
 							})}
@@ -278,117 +559,117 @@ const HomePage = () => {
 				</section>
 
 				{/* Pricing Section */}
-				<section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8">
-					<div className="max-w-6xl mx-auto">
+				<section id="pricing" className="py-20">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
-							<h2 className="text-3xl font-bold text-zinc-900 mb-4">
-								Simple, Transparent Pricing
+							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
+								Simple Pricing
 							</h2>
-							<p className="text-zinc-600 max-w-2xl mx-auto">
-								Choose the plan that works best for you. All plans include a
-								14-day free trial.
+							<p className="text-base text-zinc-600">
+								One-time payment, lifetime access
 							</p>
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-							{plans.map((plan, index) => (
-								<motion.div
-									key={plan.id}
-									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: index * 0.1 }}
-									className={`relative p-8 bg-white border-2 rounded-xl ${
-										plan.popular
-											? "border-zinc-900 shadow-lg"
-											: "border-zinc-200"
-									}`}
-								>
-									{plan.popular && (
-										<div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-											<span className="px-4 py-1 bg-zinc-900 text-white text-xs font-semibold rounded-full">
-												Most Popular
-											</span>
-										</div>
-									)}
-									<div className="text-center mb-6">
-										<h3 className="text-2xl font-bold text-zinc-900 mb-2">
-											{plan.name}
-										</h3>
-										<div className="mb-2">
-											<span className="text-4xl font-bold text-zinc-900">
-												{plan.price}
-											</span>
-											<span className="text-zinc-600">/{plan.period}</span>
-										</div>
-										<p className="text-sm text-zinc-600">{plan.description}</p>
+						<div className="max-w-2xl mx-auto">
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.6 }}
+								className="bg-white border-2 border-zinc-900 rounded-2xl p-6 shadow-xl shadow-zinc-400 hover:shadow-zinc-300"
+							>
+								<div className="text-center mb-6">
+									<h3 className="text-2xl font-bold text-zinc-900 mb-2">
+										SAAS Starter
+									</h3>
+									<div className="flex items-baseline justify-center gap-2">
+										<span className="text-3xl font-bold text-zinc-900">
+											$129
+										</span>
+										<span className="text-sm text-zinc-600">USD</span>
 									</div>
-									<ul className="space-y-3 mb-6">
-										{plan.features.map((feature, idx) => (
-											<li key={idx} className="flex items-start gap-2">
-												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
-												<span className="text-sm text-zinc-700">{feature}</span>
-											</li>
-										))}
-									</ul>
-									<Link
-										href="/pricing"
-										className={`w-full py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 ${
-											plan.popular
-												? "bg-zinc-900 text-white hover:bg-zinc-800"
-												: "bg-zinc-100 text-zinc-900 hover:bg-zinc-200"
-										}`}
-									>
-										Get Started
-										<ArrowRight className="w-4 h-4" />
-									</Link>
-								</motion.div>
-							))}
+								</div>
+
+								<ul className="space-y-2.5 mb-6">
+									{pricingFeatures.map((feature, index) => {
+										const IconComponent = feature.icon;
+										return (
+											<motion.li
+												key={index}
+												initial={{ opacity: 0, x: -20 }}
+												animate={{ opacity: 1, x: 0 }}
+												transition={{ duration: 0.4, delay: index * 0.05 }}
+												className="flex items-start gap-2"
+											>
+												<IconComponent className="w-4 h-4 text-zinc-900 flex-shrink-0 mt-0.5" />
+												<span className="text-xs text-zinc-700">
+													{feature.text}
+												</span>
+											</motion.li>
+										);
+									})}
+								</ul>
+
+								<motion.a
+									whileHover={{ scale: 1.02 }}
+									whileTap={{ scale: 0.98 }}
+									href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="block w-full py-2.5 bg-zinc-900 text-white rounded-xl text-sm font-semibold text-center hover:bg-zinc-800 transition-colors"
+								>
+									Buy Now
+								</motion.a>
+							</motion.div>
+
+							<p className="text-center text-xs text-zinc-600 mt-4">
+								One time payment • Forever yours • All upgrades included
+							</p>
 						</div>
 					</div>
 				</section>
 
 				{/* FAQ Section */}
-				<section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-50">
-					<div className="max-w-3xl mx-auto">
+				<section className="py-20 bg-white">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
-							<h2 className="text-3xl font-bold text-zinc-900 mb-4">
+							<h2 className="text-2xl font-bold text-zinc-900 mb-4">
 								Frequently Asked Questions
 							</h2>
-							<p className="text-zinc-600">
-								Everything you need to know about our SaaS starter template.
-							</p>
 						</div>
 
 						<div className="space-y-4">
-							{faqs.map((faq, index) => (
+							{faqs.map((faq) => (
 								<motion.div
-									key={index}
+									key={faq.id}
 									initial={{ opacity: 0, y: 20 }}
-									whileInView={{ opacity: 1, y: 0 }}
-									viewport={{ once: true }}
-									transition={{ delay: index * 0.1 }}
-									className="bg-white border border-zinc-200 rounded-xl overflow-hidden"
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.4 }}
+									className="border border-zinc-200 rounded-xl overflow-hidden"
 								>
 									<button
 										onClick={() =>
-											setExpandedFaq(expandedFaq === index ? null : index)
+											setExpandedFaq(expandedFaq === faq.id ? null : faq.id)
 										}
-										className="w-full p-4 flex items-center justify-between text-left hover:bg-zinc-50 transition-colors"
+										className="w-full px-4 py-3 flex items-center justify-between text-left hover:bg-zinc-50 transition-colors"
 									>
-										<span className="font-semibold text-zinc-900">
+										<span className="text-sm font-semibold text-zinc-900">
 											{faq.question}
 										</span>
-										{expandedFaq === index ? (
-											<ChevronUp className="w-5 h-5 text-zinc-600 flex-shrink-0" />
+										{expandedFaq === faq.id ? (
+											<ChevronUp className="w-4 h-4 text-zinc-600" />
 										) : (
-											<ChevronDown className="w-5 h-5 text-zinc-600 flex-shrink-0" />
+											<ChevronDown className="w-4 h-4 text-zinc-600" />
 										)}
 									</button>
-									{expandedFaq === index && (
-										<div className="px-4 pb-4 text-sm text-zinc-600">
-											{faq.answer}
-										</div>
+									{expandedFaq === faq.id && (
+										<motion.div
+											initial={{ opacity: 0, height: 0 }}
+											animate={{ opacity: 1, height: "auto" }}
+											exit={{ opacity: 0, height: 0 }}
+											className="px-4 py-3 bg-zinc-50"
+										>
+											<p className="text-xs text-zinc-700">{faq.answer}</p>
+										</motion.div>
 									)}
 								</motion.div>
 							))}
@@ -396,173 +677,336 @@ const HomePage = () => {
 					</div>
 				</section>
 
-				{/* Contact Section */}
-				<section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-					<div className="max-w-4xl mx-auto">
-						<div className="text-center mb-12">
-							<h2 className="text-3xl font-bold text-zinc-900 mb-4">
-								Get in Touch
-							</h2>
-							<p className="text-zinc-600">
-								Have a question? We'd love to hear from you.
+				{/* Footer */}
+				<footer className="py-12 border-t border-zinc-100">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="text-center mb-8">
+							<div className="flex items-center justify-center gap-2 mb-3">
+								<Rocket className="w-5 h-5" />
+								<h3 className="text-lg font-bold">SAAS Starter</h3>
+							</div>
+							<p className="text-sm text-zinc-900 max-w-2xl mx-auto mb-5">
+								Complete SaaS boilerplate to build your application faster. Get
+								started in minutes with authentication, payments, admin panel,
+								and more.
 							</p>
-						</div>
-
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-							{/* Contact Info */}
-							<div className="space-y-6">
-								<div className="p-6 bg-white border border-zinc-200 rounded-xl">
-									<div className="flex items-start gap-4">
-										<div className="p-3 bg-zinc-900 text-white rounded-xl">
-											<Mail className="w-5 h-5" />
-										</div>
-										<div>
-											<h3 className="font-semibold text-zinc-900 mb-1">
-												Email
-											</h3>
-											<p className="text-sm text-zinc-600">
-												support@yourapp.com
-											</p>
-										</div>
-									</div>
+							<div className="flex flex-col items-center gap-3">
+								<div className="flex items-center justify-center gap-5">
+									<a
+										href="https://twitter.com/yourusername"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
+									>
+										<Twitter className="w-4 h-4" />
+										<span>Twitter</span>
+									</a>
+									<a
+										href="mailto:shreyvijayvargiya26@gmail.com"
+										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
+									>
+										<Mail className="w-4 h-4" />
+										<span>Email</span>
+									</a>
 								</div>
-								<div className="p-6 bg-white border border-zinc-200 rounded-xl">
-									<div className="flex items-start gap-4">
-										<div className="p-3 bg-zinc-900 text-white rounded-xl">
-											<MessageSquare className="w-5 h-5" />
-										</div>
-										<div>
-											<h3 className="font-semibold text-zinc-900 mb-1">
-												Response Time
-											</h3>
-											<p className="text-sm text-zinc-600">
-												We typically respond within 24 hours
-											</p>
-										</div>
-									</div>
+								<div className="flex items-center justify-center gap-4">
+									<button
+										onClick={() => setShowPrivacyModal(true)}
+										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
+									>
+										<ShieldCheck className="w-4 h-4" />
+										<span>Privacy</span>
+									</button>
+									<button
+										onClick={() => setShowLegalModal(true)}
+										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
+									>
+										<Scale className="w-4 h-4" />
+										<span>Legal</span>
+									</button>
 								</div>
 							</div>
-
-							{/* Contact Form */}
-							<form
-								onSubmit={handleContactSubmit}
-								className="p-6 bg-white border border-zinc-200 rounded-xl space-y-4"
-							>
-								<div>
-									<label className="block text-sm font-medium text-zinc-900 mb-1">
-										Name
-									</label>
-									<input
-										type="text"
-										name="name"
-										value={contactForm.name}
-										onChange={(e) =>
-											setContactForm({
-												...contactForm,
-												[e.target.name]: e.target.value,
-											})
-										}
-										required
-										className="w-full px-3 py-2 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm"
-									/>
-								</div>
-								<div>
-									<label className="block text-sm font-medium text-zinc-900 mb-1">
-										Email
-									</label>
-									<input
-										type="email"
-										name="email"
-										value={contactForm.email}
-										onChange={(e) =>
-											setContactForm({
-												...contactForm,
-												[e.target.name]: e.target.value,
-											})
-										}
-										required
-										className="w-full px-3 py-2 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm"
-									/>
-								</div>
-								<div>
-									<label className="block text-sm font-medium text-zinc-900 mb-1">
-										Subject
-									</label>
-									<input
-										type="text"
-										name="subject"
-										value={contactForm.subject}
-										onChange={(e) =>
-											setContactForm({
-												...contactForm,
-												[e.target.name]: e.target.value,
-											})
-										}
-										required
-										className="w-full px-3 py-2 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm"
-									/>
-								</div>
-								<div>
-									<label className="block text-sm font-medium text-zinc-900 mb-1">
-										Message
-									</label>
-									<textarea
-										name="message"
-										value={contactForm.message}
-										onChange={(e) =>
-											setContactForm({
-												...contactForm,
-												[e.target.name]: e.target.value,
-											})
-										}
-										required
-										rows={4}
-										className="w-full px-3 py-2 border border-zinc-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-900 text-sm"
-									/>
-								</div>
-								<button
-									type="submit"
-									disabled={isSubmittingContact}
-									className="w-full py-3 bg-zinc-900 text-white rounded-xl font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 text-sm"
-								>
-									<Send className="w-4 h-4" />
-									{isSubmittingContact ? "Sending..." : "Send Message"}
-								</button>
-							</form>
+						</div>
+						<div className="pt-6 text-center text-xs text-zinc-500">
+							<p>
+								© {new Date().getFullYear()} SAAS Starter. All rights reserved.
+							</p>
 						</div>
 					</div>
-				</section>
+				</footer>
 
-				{/* CTA Section */}
-				<section className="py-20 px-4 sm:px-6 lg:px-8 bg-zinc-50">
-					<div className="max-w-4xl mx-auto text-center">
-						<motion.div
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							viewport={{ once: true }}
-							className="p-8 bg-zinc-900 rounded-xl text-white"
+				{/* Privacy Modal */}
+				<AnimatePresence>
+					{showPrivacyModal && (
+						<div
+							className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+							onClick={() => setShowPrivacyModal(false)}
 						>
-							<h2 className="text-3xl font-bold mb-4">
-								Ready to Get Started?
-							</h2>
-							<p className="text-zinc-300 mb-6">
-								Join thousands of developers building amazing SaaS products.
-							</p>
-							<Link
-								href="/pricing"
-								className="inline-flex items-center gap-2 px-6 py-3 bg-white text-zinc-900 rounded-xl font-medium hover:bg-zinc-100 transition-colors"
+							<motion.div
+								initial={{ opacity: 0, scale: 0.95, y: 20 }}
+								animate={{ opacity: 1, scale: 1, y: 0 }}
+								exit={{ opacity: 0, scale: 0.95, y: 20 }}
+								onClick={(e) => e.stopPropagation()}
+								className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
 							>
-								View Pricing
-								<ArrowRight className="w-4 h-4" />
-							</Link>
-						</motion.div>
-					</div>
-				</section>
+								<div className="p-6 border-b border-zinc-200 flex items-center justify-between">
+									<div className="flex items-center gap-2">
+										<ShieldCheck className="w-5 h-5 text-zinc-900" />
+										<h3 className="text-lg font-bold text-zinc-900">
+											Privacy Policy
+										</h3>
+									</div>
+									<button
+										onClick={() => setShowPrivacyModal(false)}
+										className="p-1 hover:bg-zinc-100 rounded transition-colors"
+									>
+										<X className="w-5 h-5 text-zinc-600" />
+									</button>
+								</div>
+								<div className="flex-1 overflow-y-auto p-6">
+									<div className="space-y-4 text-sm text-zinc-700">
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												1. Information We Collect
+											</h4>
+											<p>
+												SAAS Starter (buildsaas) collects minimal information
+												necessary to provide our services. This includes email
+												addresses for authentication and subscription
+												management, payment information processed securely
+												through Stripe, and usage data to improve our services.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												2. How We Use Your Information
+											</h4>
+											<p>
+												We use collected information to provide, maintain, and
+												improve our services, process payments, send important
+												notifications, and respond to your inquiries. We do not
+												sell or share your personal information with third
+												parties for marketing purposes.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												3. Data Security
+											</h4>
+											<p>
+												We implement industry-standard security measures to
+												protect your data. All data is encrypted in transit and
+												at rest. Payment information is processed securely
+												through Stripe and is never stored on our servers.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												4. Your Rights
+											</h4>
+											<p>
+												You have the right to access, update, or delete your
+												personal information at any time. You can also opt-out
+												of non-essential communications. Contact us at
+												shreyvijayvargiya26@gmail.com to exercise these rights.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												5. Cookies and Tracking
+											</h4>
+											<p>
+												We use essential cookies for authentication and session
+												management. We may also use analytics cookies to
+												understand how our service is used. You can control
+												cookie preferences through your browser settings.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												6. Third-Party Services
+											</h4>
+											<p>
+												Our service integrates with Firebase for authentication
+												and data storage, Stripe for payment processing, and
+												Resend for email delivery. These services have their own
+												privacy policies governing data handling.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												7. Changes to This Policy
+											</h4>
+											<p>
+												We may update this Privacy Policy from time to time. We
+												will notify you of any material changes by posting the
+												new policy on this page and updating the "Last Updated"
+												date.
+											</p>
+										</div>
+										<div className="pt-4 border-t border-zinc-200">
+											<p className="text-xs text-zinc-500">
+												Last Updated: {new Date().toLocaleDateString()}
+											</p>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+						</div>
+					)}
+				</AnimatePresence>
 
-				<Footer />
+				{/* Legal Modal */}
+				<AnimatePresence>
+					{showLegalModal && (
+						<div
+							className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+							onClick={() => setShowLegalModal(false)}
+						>
+							<motion.div
+								initial={{ opacity: 0, scale: 0.95, y: 20 }}
+								animate={{ opacity: 1, scale: 1, y: 0 }}
+								exit={{ opacity: 0, scale: 0.95, y: 20 }}
+								onClick={(e) => e.stopPropagation()}
+								className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+							>
+								<div className="p-6 border-b border-zinc-200 flex items-center justify-between">
+									<div className="flex items-center gap-2">
+										<Scale className="w-5 h-5 text-zinc-900" />
+										<h3 className="text-lg font-bold text-zinc-900">
+											Terms of Service & Legal
+										</h3>
+									</div>
+									<button
+										onClick={() => setShowLegalModal(false)}
+										className="p-1 hover:bg-zinc-100 rounded transition-colors"
+									>
+										<X className="w-5 h-5 text-zinc-600" />
+									</button>
+								</div>
+								<div className="flex-1 overflow-y-auto p-6">
+									<div className="space-y-4 text-sm text-zinc-700">
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												1. Acceptance of Terms
+											</h4>
+											<p>
+												By purchasing and using SAAS Starter (buildsaas), you
+												agree to be bound by these Terms of Service. If you do
+												not agree to these terms, please do not use our service.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												2. License and Usage Rights
+											</h4>
+											<p>
+												Upon purchase, you receive a one-time license to use,
+												modify, and customize the SAAS Starter codebase for your
+												commercial or personal projects. You may not
+												redistribute, resell, or share the source code with
+												third parties.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												3. Payment and Refunds
+											</h4>
+											<p>
+												All payments are processed securely through Stripe. Due
+												to the digital nature of our product, refunds are
+												provided at our discretion within 7 days of purchase if
+												you are unsatisfied with the product.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												4. Intellectual Property
+											</h4>
+											<p>
+												The SAAS Starter codebase, documentation, and all
+												related materials are the intellectual property of the
+												seller. You receive a license to use the code but do not
+												acquire ownership rights.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												5. Modifications and Updates
+											</h4>
+											<p>
+												You are free to modify the codebase to suit your needs.
+												All future updates to the original codebase are included
+												in your purchase, but modifications you make are your
+												responsibility to maintain.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												6. Support and Warranty
+											</h4>
+											<p>
+												The product is provided "as is" without warranties of
+												any kind. While we provide comprehensive documentation,
+												direct support is not guaranteed. The codebase is
+												well-documented and maintained.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												7. Limitation of Liability
+											</h4>
+											<p>
+												SAAS Starter and its creators shall not be liable for
+												any indirect, incidental, special, or consequential
+												damages arising from the use or inability to use the
+												product.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												8. Third-Party Services
+											</h4>
+											<p>
+												SAAS Starter integrates with third-party services
+												(Firebase, Stripe, Resend). You are responsible for
+												complying with their respective terms of service and
+												privacy policies.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												9. Termination
+											</h4>
+											<p>
+												We reserve the right to terminate or suspend access to
+												updates if you violate these terms. Your license to use
+												the codebase remains valid.
+											</p>
+										</div>
+										<div>
+											<h4 className="font-semibold text-zinc-900 mb-2">
+												10. Contact Information
+											</h4>
+											<p>
+												For questions about these terms, please contact us at
+												shreyvijayvargiya26@gmail.com.
+											</p>
+										</div>
+										<div className="pt-4 border-t border-zinc-200">
+											<p className="text-xs text-zinc-500">
+												Last Updated: {new Date().toLocaleDateString()}
+											</p>
+										</div>
+									</div>
+								</div>
+							</motion.div>
+						</div>
+					)}
+				</AnimatePresence>
 			</div>
 		</>
 	);
 };
 
-export default HomePage;
+export default LandingPage;
