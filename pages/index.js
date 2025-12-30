@@ -37,6 +37,7 @@ const LandingPage = () => {
 	const [expandedFaq, setExpandedFaq] = useState(null);
 	const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 	const [showLegalModal, setShowLegalModal] = useState(false);
+	const [activeSeoTab, setActiveSeoTab] = useState("meta");
 
 	const techStack = [
 		{
@@ -332,16 +333,17 @@ const LandingPage = () => {
 								</motion.div>
 							</div>
 
-							{/* Right Column - Banner Image Placeholder */}
+							{/* Right Column - Banner Image */}
 							<motion.div
 								initial={{ opacity: 0, scale: 0.95 }}
 								animate={{ opacity: 1, scale: 1 }}
 								transition={{ duration: 0.6, delay: 0.4 }}
-								className="bg-zinc-200 rounded-2xl h-48 md:h-64 flex items-center justify-center"
+								className="relative rounded-2xl overflow-hidden"
 							>
 								<img
 									src="https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYo9pGrkQGL8ds7z9t2vD05fIReEJKO3Cy1jZP"
-									className=" border border-zinc-200 rounded-xl"
+									alt="SAAS Starter - Build Your SaaS 10x Faster"
+									className="w-full h-full object-cover rounded-2xl border border-zinc-200"
 								/>
 							</motion.div>
 						</div>
@@ -513,6 +515,280 @@ const LandingPage = () => {
 							</div>
 						</div>
 					</motion.div>
+				</section>
+
+				{/* SEO Section */}
+				<section className="py-20 bg-zinc-50">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="text-center mb-12">
+							<div className="flex items-center justify-center gap-2 mb-3">
+								<Globe className="w-6 h-6 text-zinc-900" />
+								<h2 className="text-2xl font-bold text-zinc-900">
+									SEO Optimized Out of the Box
+								</h2>
+							</div>
+							<p className="text-base text-zinc-600">
+								Built-in SEO features to help your SaaS rank better in search
+								engines
+							</p>
+						</div>
+
+						{/* SEO Tabs */}
+						<div className="max-w-4xl mx-auto">
+							{/* Tab Buttons */}
+							<div className="flex flex-wrap items-center justify-center gap-2 mb-8 border-b border-zinc-200">
+								<button
+									onClick={() => setActiveSeoTab("meta")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeSeoTab === "meta"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Meta Tags
+								</button>
+								<button
+									onClick={() => setActiveSeoTab("og")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeSeoTab === "og"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Open Graph
+								</button>
+								<button
+									onClick={() => setActiveSeoTab("twitter")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeSeoTab === "twitter"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Twitter Cards
+								</button>
+								<button
+									onClick={() => setActiveSeoTab("structured")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeSeoTab === "structured"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Structured Data
+								</button>
+							</div>
+
+							{/* Tab Content */}
+							<AnimatePresence mode="wait">
+								{activeSeoTab === "meta" && (
+									<motion.div
+										key="meta"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Meta Tags
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Title & Description
+													</p>
+													<p className="text-xs text-zinc-600">
+														Automatically optimized title and meta description
+														for each page
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Keywords & Canonical URLs
+													</p>
+													<p className="text-xs text-zinc-600">
+														Proper keyword management and canonical URLs to
+														prevent duplicate content
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Robots Meta Tags
+													</p>
+													<p className="text-xs text-zinc-600">
+														Automatic robots meta tags for proper search engine
+														crawling
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeSeoTab === "og" && (
+									<motion.div
+										key="og"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Open Graph Tags
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Social Media Sharing
+													</p>
+													<p className="text-xs text-zinc-600">
+														Beautiful preview cards when sharing on Facebook,
+														LinkedIn, and other platforms
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Dynamic OG Images
+													</p>
+													<p className="text-xs text-zinc-600">
+														Customizable Open Graph images for each page
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Type & URL Management
+													</p>
+													<p className="text-xs text-zinc-600">
+														Proper OG type and URL configuration for better
+														social engagement
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeSeoTab === "twitter" && (
+									<motion.div
+										key="twitter"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Twitter Cards
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Summary Large Image Cards
+													</p>
+													<p className="text-xs text-zinc-600">
+														Optimized Twitter card format for maximum engagement
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Twitter Image Optimization
+													</p>
+													<p className="text-xs text-zinc-600">
+														Properly sized images for Twitter sharing
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Automatic Card Generation
+													</p>
+													<p className="text-xs text-zinc-600">
+														Twitter cards automatically generated for all pages
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeSeoTab === "structured" && (
+									<motion.div
+										key="structured"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Structured Data
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														JSON-LD Schema
+													</p>
+													<p className="text-xs text-zinc-600">
+														Rich snippets support with structured data markup
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Centralized SEO Config
+													</p>
+													<p className="text-xs text-zinc-600">
+														Easy-to-manage SEO configuration for all routes
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														SEO Component
+													</p>
+													<p className="text-xs text-zinc-600">
+														Reusable SEO component that automatically applies
+														best practices
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+					</div>
 				</section>
 
 				{/* Features Section */}
