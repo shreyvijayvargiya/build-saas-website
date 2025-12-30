@@ -30,6 +30,7 @@ import {
 	Scale,
 	Play,
 	Clock,
+	ExternalLink,
 } from "lucide-react";
 import SEO from "../lib/modules/SEO";
 
@@ -222,6 +223,44 @@ const LandingPage = () => {
 			question: "Do I need separate accounts for Firebase, Stripe, and Resend?",
 			answer:
 				"Yes, you'll need to create free accounts with Firebase (for authentication and database), Stripe (for payments), and Resend (for emails). The documentation includes step-by-step setup guides for each service.",
+		},
+	];
+
+	const testimonials = [
+		{
+			id: 1,
+			name: "Harshit Nagar",
+			company: "",
+			message:
+				"I've used buildsaas starter template amazing work by shrey with Supabase and Stripe",
+			socialType: "linkedin",
+			socialLink: "https://www.linkedin.com/in/harshit-nagar-352807161/",
+		},
+		{
+			id: 2,
+			name: "Ayush Sharma",
+			company: "",
+			message: "buildsaas is perfect one for 2026 to build SAAS app",
+			socialType: "twitter",
+			socialLink: "https://x.com/taggosaurus",
+		},
+		{
+			id: 3,
+			name: "Phil",
+			company: "TUFF++ Global",
+			message:
+				"Shrey has been amazing to help us with code repository and build SAAS crm for our business",
+			socialType: "website",
+			socialLink: "https://tuffplus.global/",
+		},
+		{
+			id: 4,
+			name: "Myriam",
+			company: "Anima AI",
+			message:
+				"I have been using buildsaas, amazing repository and quite helpful",
+			socialType: "company",
+			socialLink: "https://anima.ai",
 		},
 	];
 
@@ -904,6 +943,76 @@ const LandingPage = () => {
 					</div>
 				</section>
 
+				{/* Testimonials Section */}
+				<section className="py-20">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="text-center mb-12">
+							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
+								What Our Users Say
+							</h2>
+							<p className="text-base text-zinc-600">
+								Trusted by developers and businesses worldwide
+							</p>
+						</div>
+
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{testimonials.map((testimonial, index) => (
+								<motion.div
+									key={testimonial.id}
+									initial={{ opacity: 0, y: 20 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.4, delay: index * 0.1 }}
+									className="bg-white border border-zinc-200 rounded-xl p-6 hover:border-zinc-300 hover:shadow-lg transition-all"
+								>
+									<div className="mb-4">
+										<p className="text-sm text-zinc-700 leading-relaxed">
+											"{testimonial.message}"
+										</p>
+									</div>
+									<div className="flex items-center justify-between pt-4 border-t border-zinc-100">
+										<div>
+											<p className="text-sm font-semibold text-zinc-900">
+												{testimonial.name}
+											</p>
+											{testimonial.company && (
+												<p className="text-xs text-zinc-600">
+													{testimonial.company}
+												</p>
+											)}
+										</div>
+										<a
+											href={testimonial.socialLink}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-zinc-600 hover:text-zinc-900 transition-colors"
+										>
+											{testimonial.socialType === "linkedin" && (
+												<svg
+													className="w-5 h-5"
+													fill="currentColor"
+													viewBox="0 0 24 24"
+													xmlns="http://www.w3.org/2000/svg"
+												>
+													<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+												</svg>
+											)}
+											{testimonial.socialType === "twitter" && (
+												<Twitter className="w-5 h-5" />
+											)}
+											{testimonial.socialType === "website" && (
+												<ExternalLink className="w-5 h-5" />
+											)}
+											{testimonial.socialType === "company" && (
+												<Globe className="w-5 h-5" />
+											)}
+										</a>
+									</div>
+								</motion.div>
+							))}
+						</div>
+					</div>
+				</section>
+
 				{/* FAQ Section */}
 				<section className="py-20 bg-white">
 					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -969,7 +1078,7 @@ const LandingPage = () => {
 							<div className="flex flex-col items-center gap-3">
 								<div className="flex items-center justify-center gap-5">
 									<a
-										href="https://twitter.com/yourusername"
+										href="https://twitter.com/@treyvijay"
 										target="_blank"
 										rel="noopener noreferrer"
 										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
