@@ -39,6 +39,7 @@ const LandingPage = () => {
 	const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 	const [showLegalModal, setShowLegalModal] = useState(false);
 	const [activeSeoTab, setActiveSeoTab] = useState("meta");
+	const [activeRepoTab, setActiveRepoTab] = useState("firebase-stripe");
 
 	const techStack = [
 		{
@@ -282,20 +283,28 @@ const LandingPage = () => {
 						<div className="flex items-center justify-between">
 							<div className="flex items-center gap-2">
 								<Rocket className="w-5 h-5 text-zinc-900" />
-								<h1 className="text-lg font-bold text-zinc-900">
-									Buildsaas
-								</h1>
+								<h1 className="text-lg font-bold text-zinc-900">Buildsaas</h1>
 							</div>
-							<motion.a
-								whileHover={{ scale: 1.05 }}
-								whileTap={{ scale: 0.95 }}
-								href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="px-4 py-1.5 bg-zinc-900 text-white rounded-xl text-sm font-medium hover:bg-zinc-800 transition-colors"
-							>
-								Buy Now
-							</motion.a>
+							<div className="flex items-center">
+								<a
+									href="https://buildsaas-s18e.vercel.app/docs"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="p-1 hover:text-black text-zinc-600 hover:bg-zinc-50 rounded-xl text-sm font-medium transition-colors"
+								>
+									Docs
+								</a>
+								<motion.a
+									whileHover={{ scale: 1.05 }}
+									whileTap={{ scale: 0.95 }}
+									href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="px-4 py-1 bg-zinc-900 text-white rounded-xl text-sm font-medium hover:bg-zinc-800 transition-colors"
+								>
+									Build Your SAAS
+								</motion.a>
+							</div>
 						</div>
 					</div>
 				</header>
@@ -342,7 +351,7 @@ const LandingPage = () => {
 										rel="noopener noreferrer"
 										className="px-6 py-2 bg-green-200 text-black border border-black rounded-xl text-sm font-medium hover:bg-green-800 hover:text-white transition-colors flex items-center gap-3"
 									>
-										Buy SAAS Starter Kit
+										Get access
 										<ArrowRight className="w-3.5 h-3.5" />
 									</motion.a>
 								</motion.div>
@@ -556,8 +565,305 @@ const LandingPage = () => {
 					</motion.div>
 				</section>
 
+				{/* Code Repository Section */}
+				<section className="py-20">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="text-center mb-12">
+							<div className="flex items-center justify-center gap-2 mb-3">
+								<Code2 className="w-6 h-6 text-zinc-900" />
+								<h2 className="text-2xl font-bold text-zinc-900">
+									What You Get Once Purchased
+								</h2>
+							</div>
+							<p className="text-base text-zinc-600">
+								Complete code repository with all features and integrations
+							</p>
+						</div>
+
+						{/* Repository Tabs */}
+						<div className="max-w-4xl mx-auto">
+							{/* Tab Buttons */}
+							<div className="flex flex-wrap items-center justify-center gap-2 mb-8 border-b border-zinc-200">
+								<button
+									onClick={() => setActiveRepoTab("firebase-stripe")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeRepoTab === "firebase-stripe"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Firebase + Stripe
+								</button>
+								<button
+									onClick={() => setActiveRepoTab("firebase-polar")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeRepoTab === "firebase-polar"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Firebase + Polar
+								</button>
+							</div>
+
+							{/* Tab Content */}
+							<AnimatePresence mode="wait">
+								{activeRepoTab === "firebase-stripe" && (
+									<motion.div
+										key="firebase-stripe"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Firebase + Stripe Code Repository
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Complete Next.js 15 Application
+													</p>
+													<p className="text-xs text-zinc-600">
+														Full source code with TypeScript support and modern
+														React patterns
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Firebase Authentication
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email/password and Google OAuth authentication fully
+														configured
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Stripe Payment Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete Stripe setup with subscriptions, one-time
+														payments, and webhooks
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Firestore Database
+													</p>
+													<p className="text-xs text-zinc-600">
+														Pre-configured Firestore with user management, blog
+														system, and data models
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Admin Dashboard
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete admin panel for managing users, payments,
+														subscriptions, and blogs
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Resend Email Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email templates and API integration for
+														transactional emails
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Blog System with Tiptap
+													</p>
+													<p className="text-xs text-zinc-600">
+														Rich text editor for creating and managing blog
+														posts
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														SEO Optimization
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete SEO setup with meta tags, Open Graph, and
+														structured data
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Comprehensive Documentation
+													</p>
+													<p className="text-xs text-zinc-600">
+														Step-by-step guides for setup, deployment, and
+														customization
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeRepoTab === "firebase-polar" && (
+									<motion.div
+										key="firebase-polar"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Firebase + Polar Code Repository
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Complete Next.js 15 Application
+													</p>
+													<p className="text-xs text-zinc-600">
+														Full source code with TypeScript support and modern
+														React patterns
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Firebase Authentication
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email/password and Google OAuth authentication fully
+														configured
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Polar Payment Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete Polar setup with subscriptions, one-time
+														payments, and webhooks
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Firestore Database
+													</p>
+													<p className="text-xs text-zinc-600">
+														Pre-configured Firestore with user management, blog
+														system, and data models
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Admin Dashboard
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete admin panel for managing users, payments,
+														subscriptions, and blogs
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Resend Email Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email templates and API integration for
+														transactional emails
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Blog System with Tiptap
+													</p>
+													<p className="text-xs text-zinc-600">
+														Rich text editor for creating and managing blog
+														posts
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														SEO Optimization
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete SEO setup with meta tags, Open Graph, and
+														structured data
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Comprehensive Documentation
+													</p>
+													<p className="text-xs text-zinc-600">
+														Step-by-step guides for setup, deployment, and
+														customization
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+					</div>
+				</section>
+
 				{/* SEO Section */}
-				<section className="py-20 bg-zinc-50">
+				<section className="py-20">
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<div className="flex items-center justify-center gap-2 mb-3">
