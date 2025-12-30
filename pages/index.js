@@ -1268,7 +1268,7 @@ const LandingPage = () => {
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.4, delay: index * 0.1 }}
-									className="bg-white border border-zinc-200 rounded-xl p-6 hover:border-zinc-300 hover:shadow-lg transition-all"
+									className="bg-white rotate-2 border  shadow border-zinc-200 rounded-xl p-6 hover:border-zinc-300 hover:shadow-lg transition-all"
 								>
 									<div className="mb-4">
 										<p className="text-sm text-zinc-700 leading-relaxed">
@@ -1365,6 +1365,48 @@ const LandingPage = () => {
 								</motion.div>
 							))}
 						</div>
+					</div>
+				</section>
+
+				{/* About Me Section */}
+				<section className="py-20">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.6 }}
+							className="bg-white rounded-2xl p-8"
+						>
+							<div className="text-left mb-6">
+								<h2 className="text-2xl font-bold text-zinc-900 mb-3 flex gap-2 items-center justify-start">
+									<img className="w-16 h-16 object-center rounded-full" src="./shrey-img.JPG" />
+									About the Creator
+								</h2>
+							</div>
+							<div className="space-y-4 -rotate-2 hover:rotate-0 shadow-lg hover:shadow-none shadow-zinc-400 text-sm text-zinc-700 leading-relaxed border border-zinc-200 p-2 rounded-xl transition-all duration-75 ease-in">
+								<p>
+									Hello, I am Shrey, I am software developer with 6 years of
+									experience in companies, startups and now running my own small
+									company, I love to write code and build interfaces (because I
+									am frontend developer by love 😁),
+								</p>
+								<div className="pt-4">
+									<p>
+										I made buildsaas to help businesses, indie-hackers and
+										freelancers to build SAAS applications using buildsaas SAAS
+										starter. I learn the simple technique of creating system to
+										build, manage and scale your next idea or saas application
+										including frontend application to backend admin panels along
+										with APIs and database integration, while creating that
+										system I realised that this might help people like you in
+										building your next idea or next business, so give it try do
+										check demo
+									</p>
+									<p className="mt-4 font-medium text-zinc-900">Cheers</p>
+									<p className="font-medium text-zinc-900">Shrey</p>
+								</div>
+							</div>
+						</motion.div>
 					</div>
 				</section>
 
