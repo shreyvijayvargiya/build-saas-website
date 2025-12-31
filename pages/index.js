@@ -604,6 +604,16 @@ const LandingPage = () => {
 								>
 									Firebase + Polar
 								</button>
+								<button
+									onClick={() => setActiveRepoTab("supabase-polar")}
+									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+										activeRepoTab === "supabase-polar"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Supabase + Next.js + Polar
+								</button>
 							</div>
 
 							{/* Tab Content */}
@@ -791,6 +801,131 @@ const LandingPage = () => {
 													<p className="text-xs text-zinc-600">
 														Pre-configured Firestore with user management, blog
 														system, and data models
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Admin Dashboard
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete admin panel for managing users, payments,
+														subscriptions, and blogs
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Resend Email Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email templates and API integration for
+														transactional emails
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Blog System with Tiptap
+													</p>
+													<p className="text-xs text-zinc-600">
+														Rich text editor for creating and managing blog
+														posts
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														SEO Optimization
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete SEO setup with meta tags, Open Graph, and
+														structured data
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Comprehensive Documentation
+													</p>
+													<p className="text-xs text-zinc-600">
+														Step-by-step guides for setup, deployment, and
+														customization
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeRepoTab === "supabase-polar" && (
+									<motion.div
+										key="supabase-polar"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-200 rounded-2xl p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Supabase + Next.js + Polar Code Repository
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Complete Next.js 15 Application
+													</p>
+													<p className="text-xs text-zinc-600">
+														Full source code with TypeScript support and modern
+														React patterns
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Supabase Authentication
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email/password and OAuth authentication fully
+														configured with Supabase Auth
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Polar Payment Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete Polar setup with subscriptions, one-time
+														payments, and webhooks
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Supabase PostgreSQL Database
+													</p>
+													<p className="text-xs text-zinc-600">
+														Pre-configured Supabase database with user
+														management, blog system, and data models
 													</p>
 												</div>
 											</div>
@@ -1379,7 +1514,10 @@ const LandingPage = () => {
 						>
 							<div className="text-left mb-6">
 								<h2 className="text-2xl font-bold text-zinc-900 mb-3 flex gap-2 items-center justify-start">
-									<img className="w-16 h-16 object-center rounded-full" src="./shrey-img.JPG" />
+									<img
+										className="w-16 h-16 object-center rounded-full"
+										src="./shrey-img.JPG"
+									/>
 									About the Creator
 								</h2>
 							</div>
