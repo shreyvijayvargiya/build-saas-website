@@ -999,7 +999,7 @@ const LandingPage = () => {
 
 				{/* SEO Section */}
 				<section className="py-20">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<div className="flex items-center justify-center gap-2 mb-3">
 								<Globe className="w-6 h-6 text-zinc-900" />
@@ -1273,7 +1273,7 @@ const LandingPage = () => {
 
 				{/* Features Section */}
 				<section className="py-20 bg-white">
-					<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								Everything You Need
@@ -1316,7 +1316,7 @@ const LandingPage = () => {
 
 				{/* Pricing Section */}
 				<section id="pricing" className="py-20">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								Simple Pricing
@@ -1326,7 +1326,7 @@ const LandingPage = () => {
 							</p>
 						</div>
 
-						<div className="max-w-2xl mx-auto">
+						<div className="max-w-3xl mx-auto">
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
@@ -1385,7 +1385,7 @@ const LandingPage = () => {
 				</section>
 
 				{/* Testimonials Section */}
-				<section className="py-20">
+				{/* <section className="py-20">
 					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
@@ -1452,7 +1452,7 @@ const LandingPage = () => {
 							))}
 						</div>
 					</div>
-				</section>
+				</section> */}
 
 				{/* FAQ Section */}
 				<section className="py-20 bg-white">
@@ -1550,7 +1550,7 @@ const LandingPage = () => {
 
 				{/* Footer */}
 				<footer className="py-12 border-t border-zinc-100">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-8">
 							<div className="flex items-center justify-center gap-2 mb-3">
 								<Rocket className="w-5 h-5" />
