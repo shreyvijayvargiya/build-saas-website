@@ -39,7 +39,68 @@ const LandingPage = () => {
 	const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 	const [showLegalModal, setShowLegalModal] = useState(false);
 	const [activeSeoTab, setActiveSeoTab] = useState("meta");
-	const [activeRepoTab, setActiveRepoTab] = useState("firebase-stripe");
+	const [activeRepoTab, setActiveRepoTab] = useState("supabase-starter");
+
+	// Get tech stack links for the active repository tab
+	const getRepoTechStack = () => {
+		const baseTech = [
+			{
+				name: "Next.js",
+				link: "https://nextjs.org",
+				logo: techStack.find((t) => t.name === "Next.js")?.logo,
+			},
+			{
+				name: "Tailwind",
+				link: "https://tailwindcss.com",
+				logo: techStack.find((t) => t.name === "Tailwind")?.logo,
+			},
+			{
+				name: "TanStack",
+				link: "https://tanstack.com",
+				logo: techStack.find((t) => t.name === "TanStack")?.logo,
+			},
+		];
+
+		switch (activeRepoTab) {
+			case "supabase-starter":
+				return [
+					...baseTech,
+					{
+						name: "Supabase",
+						link: "https://supabase.com",
+						logo: techStack.find((t) => t.name === "Supabase")?.logo,
+					},
+				];
+			case "firebase-stripe":
+				return [
+					...baseTech,
+					{ name: "Firebase", link: "https://firebase.google.com", logo: null },
+					{
+						name: "Stripe",
+						link: "https://stripe.com",
+						logo: techStack.find((t) => t.name === "Stripe")?.logo,
+					},
+				];
+			case "firebase-polar":
+				return [
+					...baseTech,
+					{ name: "Firebase", link: "https://firebase.google.com", logo: null },
+					{ name: "Polar", link: "https://polar.sh", logo: null },
+				];
+			case "supabase-polar":
+				return [
+					...baseTech,
+					{
+						name: "Supabase",
+						link: "https://supabase.com",
+						logo: techStack.find((t) => t.name === "Supabase")?.logo,
+					},
+					{ name: "Polar", link: "https://polar.sh", logo: null },
+				];
+			default:
+				return baseTech;
+		}
+	};
 
 	const techStack = [
 		{
@@ -156,6 +217,20 @@ const LandingPage = () => {
 		{ text: "Clean, maintainable code", icon: Code2 },
 		{ text: "Responsive design", icon: Monitor },
 		{ text: "All future updates included", icon: RefreshCw },
+	];
+
+	const starterPricingFeatures = [
+		{ text: "Next.js frontend application", icon: Rocket },
+		{
+			text: "All frontend pages (pricing, blog, features, legal, contact)",
+			icon: Globe,
+		},
+		{ text: "Admin panel with email, user & blog management", icon: Settings },
+		{ text: "Complete login and signup flow", icon: Shield },
+		{ text: "Supabase integration", icon: Database },
+		{ text: "TipTap rich text editor", icon: FileText },
+		{ text: "Lucide React icons", icon: Sparkles },
+		{ text: "TanStack Query", icon: Code2 },
 	];
 
 	const faqs = [
@@ -290,7 +365,7 @@ const LandingPage = () => {
 									href="https://buildsaas-s18e.vercel.app/docs"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="p-1 mr-2 hover:text-black text-zinc-600 hover:bg-zinc-50 rounded-xl text-sm font-medium transition-colors"
+									className="p-1 mr-2 hover:text-black text-zinc-600 hover:bg-zinc-50  text-sm font-medium transition-colors"
 								>
 									Docs
 								</a>
@@ -349,7 +424,7 @@ const LandingPage = () => {
 										href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="px-6 py-2 bg-green-200 text-black border border-black rounded-xl text-sm font-medium hover:bg-green-800 hover:text-white transition-colors flex items-center gap-3"
+										className="px-6 py-2 bg-green-200 text-black border border-black  text-sm font-medium hover:bg-green-800 hover:text-white transition-colors flex items-center gap-3"
 									>
 										Get access
 										<ArrowRight className="w-3.5 h-3.5" />
@@ -362,7 +437,7 @@ const LandingPage = () => {
 										href="https://buildsaas-s18e.vercel.app/"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="px-6 py-2 bg-purple-100 text-zinc-900 rounded-xl text-sm font-medium hover:bg-zinc-200 transition-colors flex items-center gap-2"
+										className="px-6 py-2 bg-purple-100 text-zinc-900  text-sm font-medium hover:bg-zinc-200 transition-colors flex items-center gap-2"
 									>
 										<Play className="w-3.5 h-3.5" />
 										Try Demo
@@ -541,7 +616,7 @@ const LandingPage = () => {
 						className="mt-12 mb-12"
 					>
 						<div className="max-w-4xl mx-auto">
-							<p className="text-center w-fit mx-auto p-1 my-1 text-xs bg-zinc-50 rounded-xl text-zinc-500">
+							<p className="text-center w-fit mx-auto p-1 my-1 text-xs bg-zinc-50  text-zinc-500">
 								Why choose buildsaas
 							</p>
 							<div className="bg-white border-2 border-zinc-900 rounded-2xl p-6 shadow-lg">
@@ -561,7 +636,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 0.9 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											8+ hours
@@ -574,7 +649,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 1.0 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											6+ hours
@@ -587,7 +662,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 1.1 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											5+ hours
@@ -600,7 +675,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 1.2 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											15+ hours
@@ -615,7 +690,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 1.3 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											12+ hours
@@ -629,7 +704,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 1.4 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											4+ hours
@@ -642,7 +717,7 @@ const LandingPage = () => {
 										initial={{ opacity: 0, scale: 0.9 }}
 										animate={{ opacity: 1, scale: 1 }}
 										transition={{ duration: 0.4, delay: 1.5 }}
-										className="text-center p-4 bg-zinc-50 rounded-xl border border-zinc-200"
+										className="text-center p-4 bg-zinc-50  border border-zinc-200"
 									>
 										<div className="text-2xl font-bold text-zinc-900 mb-1">
 											10+ hours
@@ -667,7 +742,7 @@ const LandingPage = () => {
 
 				{/* Code Repository Section */}
 				<section id="code-repository" className="">
-					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<div className="flex items-center justify-center gap-2 mb-3">
 								<Code2 className="w-6 h-6 text-zinc-900" />
@@ -681,14 +756,24 @@ const LandingPage = () => {
 						</div>
 
 						{/* Repository Tabs */}
-						<div className="max-w-4xl mx-auto">
+						<div className="max-w-5xl mx-auto">
 							{/* Tab Buttons */}
-							<div className="flex flex-wrap items-center justify-center gap-2 mb-8 border-b border-zinc-200">
+							<div className="flex flex-wrap items-center justify-start gap-2 mb-4 border border-zinc-900 p-2 ">
+								<button
+									onClick={() => setActiveRepoTab("supabase-starter")}
+									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+										activeRepoTab === "supabase-starter"
+											? "bg-zinc-900 text-white"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Supabase Starter
+								</button>
 								<button
 									onClick={() => setActiveRepoTab("firebase-stripe")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
 										activeRepoTab === "firebase-stripe"
-											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
@@ -696,9 +781,9 @@ const LandingPage = () => {
 								</button>
 								<button
 									onClick={() => setActiveRepoTab("firebase-polar")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
 										activeRepoTab === "firebase-polar"
-											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
@@ -706,9 +791,9 @@ const LandingPage = () => {
 								</button>
 								<button
 									onClick={() => setActiveRepoTab("supabase-polar")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
 										activeRepoTab === "supabase-polar"
-											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
@@ -716,8 +801,141 @@ const LandingPage = () => {
 								</button>
 							</div>
 
+							{/* Tech Stack Links */}
+							<div className="flex flex-wrap items-center justify-start gap-3 mb-6">
+								{getRepoTechStack().map((tech, index) => (
+									<a
+										key={index}
+										href={tech.link}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="flex items-center gap-2 text-xs text-zinc-600 hover:text-zinc-900 transition-colors"
+									>
+										{tech.logo && (
+											<img
+												src={tech.logo}
+												alt={tech.name}
+												className="w-4 h-4 object-contain"
+											/>
+										)}
+										<span>{tech.name}</span>
+									</a>
+								))}
+							</div>
+
 							{/* Tab Content */}
 							<AnimatePresence mode="wait">
+								{activeRepoTab === "supabase-starter" && (
+									<motion.div
+										key="supabase-starter"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Supabase Starter Code Repository
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Complete Next.js Frontend Application
+													</p>
+													<p className="text-xs text-zinc-600">
+														Full frontend app with all pages: pricing, blog,
+														features, legal, and contact page
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Admin Panel
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete admin dashboard with email management, user
+														management, and blog management
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Authentication System
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete login and signup flow integrated throughout
+														the entire application
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Supabase Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Supabase for authentication and database with
+														pre-configured setup
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														TipTap Rich Text Editor
+													</p>
+													<p className="text-xs text-zinc-600">
+														TipTap editor integrated for blog post creation and
+														editing
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Lucide React Icons
+													</p>
+													<p className="text-xs text-zinc-600">
+														Modern icon library with Lucide React icons
+														throughout the application
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														TanStack Query
+													</p>
+													<p className="text-xs text-zinc-600">
+														TanStack Query for efficient data fetching and state
+														management
+													</p>
+												</div>
+											</div>
+											<div className="mt-4 pt-4 border-t border-zinc-200">
+												<a
+													href="https://buildsaas-supabase-starter.vercel.app/"
+													target="_blank"
+													rel="noopener noreferrer"
+													className="flex items-center gap-2 text-sm font-medium text-zinc-900 hover:text-zinc-600 transition-colors"
+												>
+													<ExternalLink className="w-4 h-4" />
+													View Live Demo
+												</a>
+											</div>
+										</div>
+									</motion.div>
+								)}
 								{activeRepoTab === "firebase-stripe" && (
 									<motion.div
 										key="firebase-stripe"
@@ -725,7 +943,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Firebase + Stripe Code Repository
@@ -850,7 +1068,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Firebase + Polar Code Repository
@@ -975,7 +1193,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Supabase + Next.js + Polar Code Repository
@@ -1392,10 +1610,10 @@ const LandingPage = () => {
 										initial={{ opacity: 0, y: 20 }}
 										animate={{ opacity: 1, y: 0 }}
 										transition={{ duration: 0.4, delay: index * 0.1 }}
-										className="p-4 border border-zinc-200 rounded-xl hover:border-zinc-300 transition-colors"
+										className="p-4 border border-zinc-200  hover:border-zinc-300 transition-colors"
 									>
 										<div className="flex items-start gap-3">
-											<div className="p-1.5 bg-zinc-100 rounded-xl">
+											<div className="p-1.5 bg-zinc-100 ">
 												<IconComponent className="w-5 h-5 text-zinc-900" />
 											</div>
 											<div>
@@ -1416,7 +1634,7 @@ const LandingPage = () => {
 
 				{/* Pricing Section */}
 				<section id="pricing" className="py-20">
-					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								Simple Pricing
@@ -1426,11 +1644,63 @@ const LandingPage = () => {
 							</p>
 						</div>
 
-						<div className="max-w-3xl mx-auto">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+							{/* Starter Repository Card */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.6 }}
+								className="bg-white border-2 border-zinc-200 rounded-2xl p-6"
+							>
+								<div className="text-center mb-6">
+									<h3 className="text-2xl font-bold text-zinc-900 mb-2">
+										Starter
+									</h3>
+									<div className="flex items-baseline justify-center gap-2">
+										<span className="text-3xl font-bold text-zinc-900">
+											$29
+										</span>
+										<span className="text-sm text-zinc-600">USD</span>
+									</div>
+								</div>
+
+								<ul className="space-y-2.5 mb-6">
+									{starterPricingFeatures.map((feature, index) => {
+										const IconComponent = feature.icon;
+										return (
+											<motion.li
+												key={index}
+												initial={{ opacity: 0, x: -20 }}
+												animate={{ opacity: 1, x: 0 }}
+												transition={{ duration: 0.4, delay: index * 0.05 }}
+												className="flex items-start gap-2"
+											>
+												<IconComponent className="w-4 h-4 text-zinc-900 flex-shrink-0 mt-0.5" />
+												<span className="text-xs text-zinc-700">
+													{feature.text}
+												</span>
+											</motion.li>
+										);
+									})}
+								</ul>
+
+								<motion.a
+									whileHover={{ scale: 1.02 }}
+									whileTap={{ scale: 0.98 }}
+									href="https://buy.polar.sh/polar_cl_mjqAv3fPiFCKlZbWJVI5hmoX9Pl1UAgOPTFaW1DDMAG"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="block w-full py-2.5 bg-zinc-900 text-white  text-sm font-semibold text-center hover:bg-zinc-800 transition-colors"
+								>
+									Buy Now
+								</motion.a>
+							</motion.div>
+
+							{/* SAAS Starter Card */}
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.6, delay: 0.1 }}
 								className="bg-white border-2 border-zinc-900 rounded-2xl p-6"
 							>
 								<div className="text-center mb-6">
@@ -1471,16 +1741,16 @@ const LandingPage = () => {
 									href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="block w-full py-2.5 bg-zinc-900 text-white rounded-xl text-sm font-semibold text-center hover:bg-zinc-800 transition-colors"
+									className="block w-full py-2.5 bg-zinc-900 text-white  text-sm font-semibold text-center hover:bg-zinc-800 transition-colors"
 								>
 									Buy Now
 								</motion.a>
 							</motion.div>
-
-							<p className="text-center text-xs text-zinc-600 mt-4">
-								One time payment • Forever yours • All upgrades included
-							</p>
 						</div>
+
+						<p className="text-center text-xs text-zinc-600 mt-4">
+							One time payment • Forever yours • All upgrades included
+						</p>
 					</div>
 				</section>
 
@@ -1503,7 +1773,7 @@ const LandingPage = () => {
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.4, delay: index * 0.1 }}
-									className="bg-white rotate-2 border  shadow border-zinc-200 rounded-xl p-6 hover:border-zinc-300 hover:shadow-lg transition-all"
+									className="bg-white rotate-2 border  shadow border-zinc-200  p-6 hover:border-zinc-300 hover:shadow-lg transition-all"
 								>
 									<div className="mb-4">
 										<p className="text-sm text-zinc-700 leading-relaxed">
@@ -1570,7 +1840,7 @@ const LandingPage = () => {
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.4 }}
-									className="border border-zinc-200 rounded-xl overflow-hidden"
+									className="border border-zinc-200  overflow-hidden"
 								>
 									<button
 										onClick={() =>
@@ -1621,7 +1891,7 @@ const LandingPage = () => {
 									About the Creator
 								</h2>
 							</div>
-							<div className="space-y-4 -rotate-2 hover:rotate-0 shadow-lg hover:shadow-none shadow-zinc-400 text-sm text-zinc-700 leading-relaxed border border-zinc-200 p-2 rounded-xl transition-all duration-75 ease-in">
+							<div className="space-y-4 -rotate-2 hover:rotate-0 shadow-lg hover:shadow-none shadow-zinc-400 text-sm text-zinc-700 leading-relaxed border border-zinc-200 p-2  transition-all duration-75 ease-in">
 								<p>
 									Hello, I am Shrey, I am software developer with 6 years of
 									experience in companies, startups and now running my own small
@@ -1718,7 +1988,7 @@ const LandingPage = () => {
 								animate={{ opacity: 1, scale: 1, y: 0 }}
 								exit={{ opacity: 0, scale: 0.95, y: 20 }}
 								onClick={(e) => e.stopPropagation()}
-								className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+								className="bg-white  shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
 							>
 								<div className="p-6 border-b border-zinc-200 flex items-center justify-between">
 									<div className="flex items-center gap-2">
@@ -1839,7 +2109,7 @@ const LandingPage = () => {
 								animate={{ opacity: 1, scale: 1, y: 0 }}
 								exit={{ opacity: 0, scale: 0.95, y: 20 }}
 								onClick={(e) => e.stopPropagation()}
-								className="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+								className="bg-white  shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
 							>
 								<div className="p-6 border-b border-zinc-200 flex items-center justify-between">
 									<div className="flex items-center gap-2">
