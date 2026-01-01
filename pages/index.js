@@ -279,7 +279,7 @@ const LandingPage = () => {
 			<div className="min-h-screen bg-white font-mono">
 				{/* Header */}
 				<header className="border-b border-zinc-200">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+					<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 						<div className="flex items-center justify-between">
 							<div className="flex items-center gap-2">
 								<Rocket className="w-5 h-5 text-zinc-900" />
@@ -290,7 +290,7 @@ const LandingPage = () => {
 									href="https://buildsaas-s18e.vercel.app/docs"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="p-1 hover:text-black text-zinc-600 hover:bg-zinc-50 rounded-xl text-sm font-medium transition-colors"
+									className="p-1 mr-2 hover:text-black text-zinc-600 hover:bg-zinc-50 rounded-xl text-sm font-medium transition-colors"
 								>
 									Docs
 								</a>
@@ -300,7 +300,7 @@ const LandingPage = () => {
 									href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
 									target="_blank"
 									rel="noopener noreferrer"
-									className="px-4 py-1 bg-zinc-900 text-white rounded-xl text-sm font-medium hover:bg-zinc-800 transition-colors"
+									className="px-4 py-1 bg-zinc-900 text-white rounded text-sm font-medium hover:bg-zinc-800 transition-colors"
 								>
 									Build Your SAAS
 								</motion.a>
@@ -310,8 +310,8 @@ const LandingPage = () => {
 				</header>
 
 				{/* Banner Section */}
-				<section className="py-20">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<section id="banner" className="py-20">
+					<div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-12">
 							{/* Left Column - Title and Description */}
 							<div>
@@ -355,7 +355,7 @@ const LandingPage = () => {
 										<ArrowRight className="w-3.5 h-3.5" />
 									</motion.a>
 								</motion.div>
-								<motion.div className="flex flex-col sm:flex-row items-center justify-start gap-3 my-2">
+								<motion.div className="flex items-center justify-start gap-3 my-2">
 									<motion.a
 										whileHover={{ scale: 1.05 }}
 										whileTap={{ scale: 0.95 }}
@@ -367,17 +367,113 @@ const LandingPage = () => {
 										<Play className="w-3.5 h-3.5" />
 										Try Demo
 									</motion.a>
-									<motion.a
-										whileHover={{ scale: 1.05 }}
-										whileTap={{ scale: 0.95 }}
-										href="https://buildsaas-s18e.vercel.app/docs"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="px-6 py-2 bg-zinc-100 text-zinc-900 rounded-xl text-sm font-medium hover:bg-zinc-200 transition-colors flex items-center gap-2"
+									{/* Curved SVG Icons with Links - Pointing to Try Demo Button */}
+									<motion.div
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										transition={{ duration: 0.6, delay: 1 }}
+										className="mt-1 space-y-2 flex flex-col items-start"
 									>
-										<FileText className="w-3.5 h-3.5" />
-										View Docs
-									</motion.a>
+										{/* Admin Panel Link */}
+										<div className="relative flex items-center gap-1">
+											<svg
+												className="w-16 h-8 text-zinc-400"
+												viewBox="0 0 80 50"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M 5 45 Q 20 30, 35 25 Q 50 20, 65 15"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													fill="none"
+													strokeLinecap="round"
+												/>
+												<path
+													d="M 60 12 L 65 15 L 60 18"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													fill="none"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+											<a
+												href="https://buildsaas-s18e.vercel.app/admin"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-sm text-zinc-600 hover:text-zinc-900 hover:underline transition-all"
+											>
+												check admin panel
+											</a>
+										</div>
+										{/* Read Docs Link - Middle */}
+										<div className="relative flex items-center gap-1">
+											<svg
+												className="w-16 h-6 text-zinc-400"
+												viewBox="0 0 80 50"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M 5 30 Q 20 25, 35 25 Q 50 25, 65 25"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													fill="none"
+													strokeLinecap="round"
+												/>
+												<path
+													d="M 60 22 L 65 25 L 60 28"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													fill="none"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+											<a
+												href="https://buildsaas-s18e.vercel.app/docs"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-sm text-zinc-600 hover:text-zinc-900 hover:underline transition-all"
+											>
+												read docs
+											</a>
+										</div>
+										{/* Frontend Application Link */}
+										<div className="relative flex items-center gap-1">
+											<svg
+												className="w-16 h-6 text-zinc-400"
+												viewBox="0 0 80 50"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M 5 15 Q 20 30, 35 25 Q 50 20, 65 35"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													fill="none"
+													strokeLinecap="round"
+												/>
+												<path
+													d="M 60 32 L 65 35 L 60 38"
+													stroke="currentColor"
+													strokeWidth="1.5"
+													fill="none"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+												/>
+											</svg>
+											<a
+												href="https://buildsaas-s18e.vercel.app/"
+												target="_blank"
+												rel="noopener noreferrer"
+												className="text-sm text-zinc-600 hover:text-zinc-900 hover:underline transition-all"
+											>
+												try frontend application
+											</a>
+										</div>
+									</motion.div>
 								</motion.div>
 							</div>
 
@@ -396,6 +492,7 @@ const LandingPage = () => {
 							</motion.div>
 						</div>
 					</div>
+					<br />
 					{/* Tech Stack */}
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
@@ -435,7 +532,7 @@ const LandingPage = () => {
 							))}
 						</div>
 					</motion.div>
-
+					<br />
 					{/* Time Saved Section */}
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
@@ -444,6 +541,9 @@ const LandingPage = () => {
 						className="mt-12 mb-12"
 					>
 						<div className="max-w-4xl mx-auto">
+							<p className="text-center w-fit mx-auto p-1 my-1 text-xs bg-zinc-50 rounded-xl text-zinc-500">
+								Why choose buildsaas
+							</p>
 							<div className="bg-white border-2 border-zinc-900 rounded-2xl p-6 shadow-lg">
 								<div className="text-center mb-6">
 									<div className="flex items-center justify-center gap-2 mb-2">
@@ -566,8 +666,8 @@ const LandingPage = () => {
 				</section>
 
 				{/* Code Repository Section */}
-				<section className="py-20">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<section id="code-repository" className="">
+					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<div className="flex items-center justify-center gap-2 mb-3">
 								<Code2 className="w-6 h-6 text-zinc-900" />
@@ -998,7 +1098,7 @@ const LandingPage = () => {
 				</section>
 
 				{/* SEO Section */}
-				<section className="py-20">
+				<section id="seo" className="py-20">
 					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<div className="flex items-center justify-center gap-2 mb-3">
@@ -1272,8 +1372,8 @@ const LandingPage = () => {
 				</section>
 
 				{/* Features Section */}
-				<section className="py-20 bg-white">
-					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+				<section id="features" className="py-20 bg-white">
+					<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								Everything You Need
@@ -1331,7 +1431,7 @@ const LandingPage = () => {
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.6 }}
-								className="bg-white border-2 border-zinc-900 rounded-2xl p-6 shadow-xl shadow-zinc-400 hover:shadow-zinc-300"
+								className="bg-white border-2 border-zinc-900 rounded-2xl p-6"
 							>
 								<div className="text-center mb-6">
 									<h3 className="text-2xl font-bold text-zinc-900 mb-2">
@@ -1385,8 +1485,8 @@ const LandingPage = () => {
 				</section>
 
 				{/* Testimonials Section */}
-				{/* <section className="py-20">
-					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<section id="testimonials" className="py-20">
+					<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								What Our Users Say
@@ -1396,7 +1496,7 @@ const LandingPage = () => {
 							</p>
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
 							{testimonials.map((testimonial, index) => (
 								<motion.div
 									key={testimonial.id}
@@ -1452,10 +1552,10 @@ const LandingPage = () => {
 							))}
 						</div>
 					</div>
-				</section> */}
+				</section>
 
 				{/* FAQ Section */}
-				<section className="py-20 bg-white">
+				<section id="faq" className="py-20 bg-white">
 					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-4">
@@ -1504,7 +1604,7 @@ const LandingPage = () => {
 				</section>
 
 				{/* About Me Section */}
-				<section className="py-20">
+				<section id="about-creator" className="py-20">
 					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 						<motion.div
 							initial={{ opacity: 0, y: 20 }}
