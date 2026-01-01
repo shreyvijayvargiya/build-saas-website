@@ -245,15 +245,15 @@ const LandingPage = () => {
 			socialType: "twitter",
 			socialLink: "https://x.com/taggosaurus",
 		},
-		{
-			id: 3,
-			name: "Phil",
-			company: "TUFF++ Global",
-			message:
-				"Shrey has been amazing to help us with code repository and build SAAS crm for our business",
-			socialType: "website",
-			socialLink: "https://tuffplus.global/",
-		},
+		// {
+		// 	id: 3,
+		// 	name: "Phil",
+		// 	company: "TUFF++ Global",
+		// 	message:
+		// 		"Shrey has been amazing to help us with code repository and build SAAS crm for our business",
+		// 	socialType: "website",
+		// 	socialLink: "https://tuffplus.global/",
+		// },
 		{
 			id: 4,
 			name: "Myriam",
