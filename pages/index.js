@@ -41,6 +41,32 @@ import {
 } from "lucide-react";
 import SEO from "../lib/modules/SEO";
 
+// Polar Icon Component
+const PolarIcon = ({ className = "w-4 h-4" }) => (
+	<svg
+		width="16"
+		height="16"
+		viewBox="0 0 300 300"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		className={className}
+	>
+		<g clipPath="url(#clip0_1_4)">
+			<path
+				fillRule="evenodd"
+				clipRule="evenodd"
+				d="M66.4284 274.26C134.876 320.593 227.925 302.666 274.258 234.219C320.593 165.771 302.666 72.7222 234.218 26.3885C165.77 -19.9451 72.721 -2.0181 26.3873 66.4297C-19.9465 134.877 -2.01938 227.927 66.4284 274.26ZM47.9555 116.67C30.8375 169.263 36.5445 221.893 59.2454 256.373C18.0412 217.361 7.27564 150.307 36.9437 92.318C55.9152 55.2362 87.5665 29.3937 122.5 18.3483C90.5911 36.7105 62.5549 71.8144 47.9555 116.67ZM175.347 283.137C211.377 272.606 244.211 246.385 263.685 208.322C293.101 150.825 282.768 84.4172 242.427 45.2673C264.22 79.7626 269.473 131.542 252.631 183.287C237.615 229.421 208.385 265.239 175.347 283.137ZM183.627 266.229C207.945 245.418 228.016 210.604 236.936 168.79C251.033 102.693 232.551 41.1978 195.112 20.6768C214.97 47.3945 225.022 99.2902 218.824 157.333C214.085 201.724 200.814 240.593 183.627 266.229ZM63.7178 131.844C49.5155 198.43 68.377 260.345 106.374 280.405C85.9962 254.009 75.5969 201.514 81.8758 142.711C86.5375 99.0536 99.4504 60.737 116.225 35.0969C92.2678 55.983 72.5384 90.4892 63.7178 131.844ZM199.834 149.561C200.908 217.473 179.59 272.878 152.222 273.309C124.853 273.742 101.797 219.039 100.724 151.127C99.6511 83.2138 120.968 27.8094 148.337 27.377C175.705 26.9446 198.762 81.648 199.834 149.561Z"
+				fill="currentColor"
+			/>
+		</g>
+		<defs>
+			<clipPath id="clip0_1_4">
+				<rect width="300" height="300" fill="white" />
+			</clipPath>
+		</defs>
+	</svg>
+);
+
 // Tree Item Component for Time Saved Section
 const TreeItem = ({ node, level = 0, activeCard, cardFilesMap }) => {
 	const isFile = node.type === "file";
@@ -157,7 +183,11 @@ const LandingPage = () => {
 			case "firebase-stripe":
 				return [
 					...baseTech,
-					{ name: "Firebase", link: "https://firebase.google.com", logo: null },
+					{
+						name: "Firebase",
+						link: "https://firebase.google.com",
+						logo: techStack.find((t) => t.name === "Firebase")?.logo,
+					},
 					{
 						name: "Stripe",
 						link: "https://stripe.com",
@@ -167,7 +197,11 @@ const LandingPage = () => {
 			case "firebase-polar":
 				return [
 					...baseTech,
-					{ name: "Firebase", link: "https://firebase.google.com", logo: null },
+					{
+						name: "Firebase",
+						link: "https://firebase.google.com",
+						logo: techStack.find((t) => t.name === "Firebase")?.logo,
+					},
 					{ name: "Polar", link: "https://polar.sh", logo: null },
 				];
 			case "supabase-polar":
@@ -200,6 +234,16 @@ const LandingPage = () => {
 			name: "Supabase",
 			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRY3eNktrqCWeogKhF19bTi7I6zQ0q8EafskJrG",
 			link: "https://supabase.com",
+		},
+		{
+			name: "Firebase",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYCHRVbf99lEJVSgFcNYy6WDRowUt2QGLmhdeM",
+			link: "https://firebase.google.com",
+		},
+		{
+			name: "Vercel",
+			logo: "https://b4fcijccdw.ufs.sh/f/mVUSE925dTRY4aAEpYM9KkvDGR7YLPZ4i83EBMOFb06dhXH1",
+			link: "https://vercel.com",
 		},
 		{
 			name: "Resend",
@@ -553,9 +597,9 @@ const LandingPage = () => {
 										href="https://buy.polar.sh/polar_cl_4DKKA9Ohkz60mo6VtK0VetQLUkkS5lWnjpeRv4Y9rPK"
 										target="_blank"
 										rel="noopener noreferrer"
-										className="px-6 py-2 bg-green-200 text-black border border-black  text-sm font-medium hover:bg-green-800 hover:text-white transition-colors flex items-center gap-3"
+										className="w-full sm:w-auto px-6 py-2 bg-green-200 text-black border border-black  text-sm font-medium hover:bg-green-800 hover:text-white transition-colors flex items-center justify-center gap-3"
 									>
-										Get access
+										Buy BuildSaaS Pro
 										<ArrowRight className="w-3.5 h-3.5" />
 									</motion.a>
 								</motion.div>
@@ -736,444 +780,6 @@ const LandingPage = () => {
 							))}
 						</div>
 					</motion.div>
-					<br />
-					{/* Time Saved Section */}
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.8 }}
-						className="mt-12 mb-12"
-					>
-						<div className="max-w-4xl mx-auto">
-							<p className="text-center w-fit p-1 my-1 text-xs bg-zinc-50  text-zinc-500">
-								Why choose buildsaas
-							</p>
-							<div className="bg-white border border-zinc-900 p-6">
-								<div className="text-center mb-6">
-									<div className="flex items-center justify-center gap-2 mb-2">
-										<Clock className="w-5 h-5 text-zinc-900" />
-										<h3 className="text-xl font-bold text-zinc-900">
-											Time Saved with SAAS Starter
-										</h3>
-									</div>
-									<p className="text-sm text-zinc-600">
-										Hours of development time you save by using our boilerplate
-									</p>
-								</div>
-								<div className="flex flex-col md:flex-row gap-6">
-									{/* Left Side - Cards */}
-									<div className="flex-1 flex flex-col border border-zinc-900 p-2 gap-1">
-										{[
-											{
-												id: "nextjs",
-												hours: "8+ hours",
-												title: "Next.js setup, routing & configuration",
-												icon: Code2,
-												files: [
-													"pages/",
-													"next.config.js",
-													"package.json",
-													"tailwind.config.js",
-												],
-											},
-											{
-												id: "auth",
-												hours: "6+ hours",
-												title: "Authentication (Email/Password & Google OAuth)",
-												icon: Shield,
-												files: [
-													"lib/firebase.js",
-													"lib/api/auth.js",
-													"pages/api/auth/",
-												],
-											},
-											{
-												id: "email",
-												hours: "5+ hours",
-												title: "Resend email API, templates & webhooks",
-												icon: Mail,
-												files: [
-													"lib/api/emails.js",
-													"pages/api/emails/",
-													"public/html/",
-												],
-											},
-											{
-												id: "payment",
-												hours: "15+ hours",
-												title: "Stripe payment integration & webhooks",
-												icon: CreditCard,
-												files: [
-													"lib/api/payments.js",
-													"pages/api/polar/",
-													"lib/utils/polar/",
-												],
-											},
-											{
-												id: "admin",
-												hours: "12+ hours",
-												title:
-													"Admin panel with tables (Customers, Payments, Subscriptions)",
-												icon: Settings,
-												files: [
-													"app/admin/",
-													"pages/admin/",
-													"lib/api/customers.js",
-												],
-											},
-											{
-												id: "blog",
-												hours: "4+ hours",
-												title: "Blog system with Tiptap editor",
-												icon: FileText,
-												files: [
-													"app/admin/components/BlogTab.jsx",
-													"lib/api/blog.js",
-													"pages/blog/",
-												],
-											},
-											{
-												id: "seo",
-												hours: "10+ hours",
-												title: "SEO setup, documentation & deployment",
-												icon: Globe,
-												files: [
-													"lib/modules/SEO.jsx",
-													"lib/config/seo.js",
-													"public/docs/",
-												],
-											},
-										].map((card, index) => {
-											const IconComponent = card.icon;
-											return (
-												<motion.div
-													key={card.id}
-													initial={{ opacity: 0, x: -20 }}
-													animate={{ opacity: 1, x: 0 }}
-													transition={{
-														duration: 0.4,
-														delay: 0.9 + index * 0.1,
-													}}
-													onClick={() =>
-														setActiveTimeCard(
-															activeTimeCard === card.id ? null : card.id
-														)
-													}
-													className={`p-2 cursor-pointer transition-all flex items-center gap-2.5 ${
-														activeTimeCard === card.id
-															? "bg-zinc-100 border-2 border-zinc-900"
-															: "bg-zinc-50 border border-zinc-200 hover:border-zinc-300"
-													}`}
-												>
-													<IconComponent
-														className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
-															activeTimeCard === card.id
-																? "text-zinc-900"
-																: "text-zinc-600"
-														}`}
-													/>
-													<div className="flex-1 min-w-0">
-														<div
-															className={`text-lg font-bold mb-0.5 ${activeTimeCard === card.id ? "text-zinc-900" : "text-zinc-900"}`}
-														>
-															{card.hours}
-														</div>
-														<div
-															className={`text-xs ${activeTimeCard === card.id ? "text-zinc-700" : "text-zinc-600"}`}
-														>
-															{card.title}
-														</div>
-													</div>
-												</motion.div>
-											);
-										})}
-										<div className="mt-3 p-2.5 bg-zinc-100 border border-zinc-300  text-center">
-											<div className="text-base font-bold text-zinc-900">
-												Total: <span className="text-xl">50+ hours</span> saved
-											</div>
-										</div>
-									</div>
-
-									{/* Right Side - Tree View */}
-									<div className="flex-1 border border-zinc-200 p-4 bg-zinc-50 max-h-[600px] overflow-y-auto">
-										<div className="text-xs font-semibold text-zinc-600 mb-3 uppercase tracking-wide">
-											Repository Structure
-										</div>
-										<div className="space-y-1">
-											{/* Simplified Tree Structure */}
-											{[
-												{
-													type: "file",
-													name: "next.config.js",
-													path: "next.config.js",
-													lines: 45,
-												},
-												{
-													type: "file",
-													name: "package.json",
-													path: "package.json",
-													lines: 120,
-												},
-												{
-													type: "file",
-													name: "tailwind.config.js",
-													path: "tailwind.config.js",
-													lines: 35,
-												},
-												{
-													type: "directory",
-													name: "pages",
-													path: "pages",
-													fileCount: 25,
-													children: [
-														{
-															type: "file",
-															name: "index.js",
-															path: "pages/index.js",
-															lines: 2579,
-														},
-														{
-															type: "file",
-															name: "_app.js",
-															path: "pages/_app.js",
-															lines: 85,
-														},
-														{
-															type: "directory",
-															name: "api",
-															path: "pages/api",
-															fileCount: 12,
-															children: [
-																{
-																	type: "directory",
-																	name: "auth",
-																	path: "pages/api/auth",
-																	fileCount: 3,
-																},
-																{
-																	type: "directory",
-																	name: "emails",
-																	path: "pages/api/emails",
-																	fileCount: 4,
-																},
-																{
-																	type: "directory",
-																	name: "polar",
-																	path: "pages/api/polar",
-																	fileCount: 5,
-																},
-															],
-														},
-														{
-															type: "directory",
-															name: "admin",
-															path: "pages/admin",
-															fileCount: 2,
-														},
-														{
-															type: "directory",
-															name: "blog",
-															path: "pages/blog",
-															fileCount: 4,
-														},
-													],
-												},
-												{
-													type: "directory",
-													name: "lib",
-													path: "lib",
-													fileCount: 18,
-													children: [
-														{
-															type: "file",
-															name: "firebase.js",
-															path: "lib/firebase.js",
-															lines: 95,
-														},
-														{
-															type: "directory",
-															name: "api",
-															path: "lib/api",
-															fileCount: 8,
-															children: [
-																{
-																	type: "file",
-																	name: "auth.js",
-																	path: "lib/api/auth.js",
-																	lines: 320,
-																},
-																{
-																	type: "file",
-																	name: "emails.js",
-																	path: "lib/api/emails.js",
-																	lines: 280,
-																},
-																{
-																	type: "file",
-																	name: "payments.js",
-																	path: "lib/api/payments.js",
-																	lines: 450,
-																},
-																{
-																	type: "file",
-																	name: "blog.js",
-																	path: "lib/api/blog.js",
-																	lines: 380,
-																},
-																{
-																	type: "file",
-																	name: "customers.js",
-																	path: "lib/api/customers.js",
-																	lines: 210,
-																},
-															],
-														},
-														{
-															type: "directory",
-															name: "modules",
-															path: "lib/modules",
-															fileCount: 1,
-															children: [
-																{
-																	type: "file",
-																	name: "SEO.jsx",
-																	path: "lib/modules/SEO.jsx",
-																	lines: 150,
-																},
-															],
-														},
-														{
-															type: "directory",
-															name: "config",
-															path: "lib/config",
-															fileCount: 1,
-															children: [
-																{
-																	type: "file",
-																	name: "seo.js",
-																	path: "lib/config/seo.js",
-																	lines: 85,
-																},
-															],
-														},
-														{
-															type: "directory",
-															name: "utils",
-															path: "lib/utils",
-															fileCount: 5,
-															children: [
-																{
-																	type: "directory",
-																	name: "polar",
-																	path: "lib/utils/polar",
-																	fileCount: 3,
-																},
-															],
-														},
-													],
-												},
-												{
-													type: "directory",
-													name: "app",
-													path: "app",
-													fileCount: 15,
-													children: [
-														{
-															type: "directory",
-															name: "admin",
-															path: "app/admin",
-															fileCount: 12,
-															children: [
-																{
-																	type: "directory",
-																	name: "components",
-																	path: "app/admin/components",
-																	fileCount: 8,
-																	children: [
-																		{
-																			type: "file",
-																			name: "BlogTab.jsx",
-																			path: "app/admin/components/BlogTab.jsx",
-																			lines: 420,
-																		},
-																	],
-																},
-															],
-														},
-													],
-												},
-												{
-													type: "directory",
-													name: "public",
-													path: "public",
-													fileCount: 8,
-													children: [
-														{
-															type: "directory",
-															name: "html",
-															path: "public/html",
-															fileCount: 5,
-														},
-														{
-															type: "directory",
-															name: "docs",
-															path: "public/docs",
-															fileCount: 3,
-														},
-													],
-												},
-											].map((node) => (
-												<TreeItem
-													key={node.path}
-													node={node}
-													level={0}
-													activeCard={activeTimeCard}
-													cardFilesMap={{
-														nextjs: [
-															"next.config.js",
-															"package.json",
-															"tailwind.config.js",
-															"pages/",
-														],
-														auth: [
-															"lib/firebase.js",
-															"lib/api/auth.js",
-															"pages/api/auth",
-														],
-														email: [
-															"lib/api/emails.js",
-															"pages/api/emails",
-															"public/html",
-														],
-														payment: [
-															"lib/api/payments.js",
-															"pages/api/polar",
-															"lib/utils/polar",
-														],
-														admin: [
-															"app/admin",
-															"pages/admin",
-															"lib/api/customers.js",
-														],
-														blog: [
-															"app/admin/components/BlogTab.jsx",
-															"lib/api/blog.js",
-															"pages/blog",
-														],
-														seo: [
-															"lib/modules/SEO.jsx",
-															"lib/config/seo.js",
-															"public/docs",
-														],
-													}}
-												/>
-											))}
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</motion.div>
 				</section>
 
 				{/* Code Repository Section */}
@@ -1194,46 +800,80 @@ const LandingPage = () => {
 						{/* Repository Tabs */}
 						<div className="max-w-5xl mx-auto">
 							{/* Tab Buttons */}
-							<div className="flex flex-wrap items-center justify-start gap-2 mb-4 border border-zinc-900 p-2 ">
+							<div className="flex flex-col sm:flex-row flex-wrap items-center justify-start gap-2 mb-4 border border-zinc-900 p-2 ">
 								<button
 									onClick={() => setActiveRepoTab("supabase-starter")}
-									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+									className={`w-full sm:w-auto px-4 py-1.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
 										activeRepoTab === "supabase-starter"
 											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									{techStack.find((t) => t.name === "Supabase")?.logo && (
+										<img
+											src={techStack.find((t) => t.name === "Supabase")?.logo}
+											alt="Supabase"
+											className="w-6 h-6 object-contain"
+										/>
+									)}
 									Supabase Starter
 								</button>
 								<button
 									onClick={() => setActiveRepoTab("firebase-stripe")}
-									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+									className={`w-full sm:w-auto px-4 py-1.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
 										activeRepoTab === "firebase-stripe"
 											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
-									Firebase + Stripe
+									<img
+										src="/logos/firebase.jpg"
+										alt="Firebase"
+										className="w-6 h-6 object-contain"
+									/>
+									Firebase +
+									{techStack.find((t) => t.name === "Stripe")?.logo && (
+										<img
+											src={techStack.find((t) => t.name === "Stripe")?.logo}
+											alt="Stripe"
+											className="w-4 h-4 object-contain"
+										/>
+									)}
+									Stripe
 								</button>
 								<button
 									onClick={() => setActiveRepoTab("firebase-polar")}
-									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+									className={`w-full sm:w-auto px-4 py-1.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
 										activeRepoTab === "firebase-polar"
 											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
-									Firebase + Polar
+									<img
+										src="/logos/firebase.jpg"
+										alt="Firebase"
+										className="w-6 h-6 object-contain"
+									/>
+									Firebase + <PolarIcon className="w-4 h-4" />
+									Polar
 								</button>
 								<button
 									onClick={() => setActiveRepoTab("supabase-polar")}
-									className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+									className={`w-full sm:w-auto px-4 py-1.5 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
 										activeRepoTab === "supabase-polar"
 											? "bg-zinc-900 text-white"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
-									Supabase + Polar
+									{techStack.find((t) => t.name === "Supabase")?.logo && (
+										<img
+											src={techStack.find((t) => t.name === "Supabase")?.logo}
+											alt="Supabase"
+											className="w-6 h-6 object-contain"
+										/>
+									)}
+									Supabase + <PolarIcon className="w-4 h-4" />
+									Polar
 								</button>
 							</div>
 
@@ -1749,6 +1389,446 @@ const LandingPage = () => {
 							</AnimatePresence>
 						</div>
 					</div>
+				</section>
+
+				<section className="py-20" id="time-saved">
+					{/* Time Saved Section */}
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6, delay: 0.8 }}
+						className="mt-12 mb-12"
+					>
+						<div className="max-w-4xl mx-auto">
+							<p className="text-center w-fit p-1 my-1 text-xs bg-zinc-50  text-zinc-500">
+								Why choose buildsaas
+							</p>
+							<div className="bg-white border border-zinc-900 p-6">
+								<div className="text-center mb-6">
+									<div className="flex items-center justify-center gap-2 mb-2">
+										<Clock className="w-5 h-5 text-zinc-900" />
+										<h3 className="text-xl font-bold text-zinc-900">
+											Time Saved with SAAS Starter
+										</h3>
+									</div>
+									<p className="text-sm text-zinc-600">
+										Hours of development time you save by using our boilerplate
+									</p>
+								</div>
+								<div className="flex flex-col md:flex-row gap-6">
+									{/* Left Side - Cards */}
+									<div className="flex-1 flex flex-col border border-zinc-900 p-2 gap-1">
+										{[
+											{
+												id: "nextjs",
+												hours: "8+ hours",
+												title: "Next.js setup, routing & configuration",
+												icon: Code2,
+												files: [
+													"pages/",
+													"next.config.js",
+													"package.json",
+													"tailwind.config.js",
+												],
+											},
+											{
+												id: "auth",
+												hours: "6+ hours",
+												title: "Authentication (Email/Password & Google OAuth)",
+												icon: Shield,
+												files: [
+													"lib/firebase.js",
+													"lib/api/auth.js",
+													"pages/api/auth/",
+												],
+											},
+											{
+												id: "email",
+												hours: "5+ hours",
+												title: "Resend email API, templates & webhooks",
+												icon: Mail,
+												files: [
+													"lib/api/emails.js",
+													"pages/api/emails/",
+													"public/html/",
+												],
+											},
+											{
+												id: "payment",
+												hours: "15+ hours",
+												title: "Stripe payment integration & webhooks",
+												icon: CreditCard,
+												files: [
+													"lib/api/payments.js",
+													"pages/api/polar/",
+													"lib/utils/polar/",
+												],
+											},
+											{
+												id: "admin",
+												hours: "12+ hours",
+												title:
+													"Admin panel with tables (Customers, Payments, Subscriptions)",
+												icon: Settings,
+												files: [
+													"app/admin/",
+													"pages/admin/",
+													"lib/api/customers.js",
+												],
+											},
+											{
+												id: "blog",
+												hours: "4+ hours",
+												title: "Blog system with Tiptap editor",
+												icon: FileText,
+												files: [
+													"app/admin/components/BlogTab.jsx",
+													"lib/api/blog.js",
+													"pages/blog/",
+												],
+											},
+											{
+												id: "seo",
+												hours: "10+ hours",
+												title: "SEO setup, documentation & deployment",
+												icon: Globe,
+												files: [
+													"lib/modules/SEO.jsx",
+													"lib/config/seo.js",
+													"public/docs/",
+												],
+											},
+										].map((card, index) => {
+											const IconComponent = card.icon;
+											return (
+												<motion.div
+													key={card.id}
+													initial={{ opacity: 0, x: -20 }}
+													animate={{ opacity: 1, x: 0 }}
+													transition={{
+														duration: 0.4,
+														delay: 0.9 + index * 0.1,
+													}}
+													onClick={() =>
+														setActiveTimeCard(
+															activeTimeCard === card.id ? null : card.id
+														)
+													}
+													className={`p-2 cursor-pointer transition-all flex items-center gap-2.5 ${
+														activeTimeCard === card.id
+															? "bg-zinc-100 border-2 border-zinc-900"
+															: "bg-zinc-50 border border-zinc-200 hover:border-zinc-300"
+													}`}
+												>
+													<IconComponent
+														className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+															activeTimeCard === card.id
+																? "text-zinc-900"
+																: "text-zinc-600"
+														}`}
+													/>
+													<div className="flex-1 min-w-0">
+														<div
+															className={`text-lg font-bold mb-0.5 ${activeTimeCard === card.id ? "text-zinc-900" : "text-zinc-900"}`}
+														>
+															{card.hours}
+														</div>
+														<div
+															className={`text-xs ${activeTimeCard === card.id ? "text-zinc-700" : "text-zinc-600"}`}
+														>
+															{card.title}
+														</div>
+													</div>
+												</motion.div>
+											);
+										})}
+										<div className="mt-3 p-2.5 bg-zinc-100 border border-zinc-300  text-center">
+											<div className="text-base font-bold text-zinc-900">
+												Total: <span className="text-xl">50+ hours</span> saved
+											</div>
+										</div>
+									</div>
+
+									{/* Right Side - Tree View */}
+									<div className="flex-1 border border-zinc-200 p-4 bg-zinc-50 max-h-[600px] overflow-y-auto">
+										<div className="text-xs font-semibold text-zinc-600 mb-3 uppercase tracking-wide">
+											Repository Structure
+										</div>
+										<div className="space-y-1">
+											{/* Simplified Tree Structure */}
+											{[
+												{
+													type: "file",
+													name: "next.config.js",
+													path: "next.config.js",
+													lines: 45,
+												},
+												{
+													type: "file",
+													name: "package.json",
+													path: "package.json",
+													lines: 120,
+												},
+												{
+													type: "file",
+													name: "tailwind.config.js",
+													path: "tailwind.config.js",
+													lines: 35,
+												},
+												{
+													type: "directory",
+													name: "pages",
+													path: "pages",
+													fileCount: 25,
+													children: [
+														{
+															type: "file",
+															name: "index.js",
+															path: "pages/index.js",
+															lines: 2579,
+														},
+														{
+															type: "file",
+															name: "_app.js",
+															path: "pages/_app.js",
+															lines: 85,
+														},
+														{
+															type: "directory",
+															name: "api",
+															path: "pages/api",
+															fileCount: 12,
+															children: [
+																{
+																	type: "directory",
+																	name: "auth",
+																	path: "pages/api/auth",
+																	fileCount: 3,
+																},
+																{
+																	type: "directory",
+																	name: "emails",
+																	path: "pages/api/emails",
+																	fileCount: 4,
+																},
+																{
+																	type: "directory",
+																	name: "polar",
+																	path: "pages/api/polar",
+																	fileCount: 5,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "admin",
+															path: "pages/admin",
+															fileCount: 2,
+														},
+														{
+															type: "directory",
+															name: "blog",
+															path: "pages/blog",
+															fileCount: 4,
+														},
+													],
+												},
+												{
+													type: "directory",
+													name: "lib",
+													path: "lib",
+													fileCount: 18,
+													children: [
+														{
+															type: "file",
+															name: "firebase.js",
+															path: "lib/firebase.js",
+															lines: 95,
+														},
+														{
+															type: "directory",
+															name: "api",
+															path: "lib/api",
+															fileCount: 8,
+															children: [
+																{
+																	type: "file",
+																	name: "auth.js",
+																	path: "lib/api/auth.js",
+																	lines: 320,
+																},
+																{
+																	type: "file",
+																	name: "emails.js",
+																	path: "lib/api/emails.js",
+																	lines: 280,
+																},
+																{
+																	type: "file",
+																	name: "payments.js",
+																	path: "lib/api/payments.js",
+																	lines: 450,
+																},
+																{
+																	type: "file",
+																	name: "blog.js",
+																	path: "lib/api/blog.js",
+																	lines: 380,
+																},
+																{
+																	type: "file",
+																	name: "customers.js",
+																	path: "lib/api/customers.js",
+																	lines: 210,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "modules",
+															path: "lib/modules",
+															fileCount: 1,
+															children: [
+																{
+																	type: "file",
+																	name: "SEO.jsx",
+																	path: "lib/modules/SEO.jsx",
+																	lines: 150,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "config",
+															path: "lib/config",
+															fileCount: 1,
+															children: [
+																{
+																	type: "file",
+																	name: "seo.js",
+																	path: "lib/config/seo.js",
+																	lines: 85,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "utils",
+															path: "lib/utils",
+															fileCount: 5,
+															children: [
+																{
+																	type: "directory",
+																	name: "polar",
+																	path: "lib/utils/polar",
+																	fileCount: 3,
+																},
+															],
+														},
+													],
+												},
+												{
+													type: "directory",
+													name: "app",
+													path: "app",
+													fileCount: 15,
+													children: [
+														{
+															type: "directory",
+															name: "admin",
+															path: "app/admin",
+															fileCount: 12,
+															children: [
+																{
+																	type: "directory",
+																	name: "components",
+																	path: "app/admin/components",
+																	fileCount: 8,
+																	children: [
+																		{
+																			type: "file",
+																			name: "BlogTab.jsx",
+																			path: "app/admin/components/BlogTab.jsx",
+																			lines: 420,
+																		},
+																	],
+																},
+															],
+														},
+													],
+												},
+												{
+													type: "directory",
+													name: "public",
+													path: "public",
+													fileCount: 8,
+													children: [
+														{
+															type: "directory",
+															name: "html",
+															path: "public/html",
+															fileCount: 5,
+														},
+														{
+															type: "directory",
+															name: "docs",
+															path: "public/docs",
+															fileCount: 3,
+														},
+													],
+												},
+											].map((node) => (
+												<TreeItem
+													key={node.path}
+													node={node}
+													level={0}
+													activeCard={activeTimeCard}
+													cardFilesMap={{
+														nextjs: [
+															"next.config.js",
+															"package.json",
+															"tailwind.config.js",
+															"pages/",
+														],
+														auth: [
+															"lib/firebase.js",
+															"lib/api/auth.js",
+															"pages/api/auth",
+														],
+														email: [
+															"lib/api/emails.js",
+															"pages/api/emails",
+															"public/html",
+														],
+														payment: [
+															"lib/api/payments.js",
+															"pages/api/polar",
+															"lib/utils/polar",
+														],
+														admin: [
+															"app/admin",
+															"pages/admin",
+															"lib/api/customers.js",
+														],
+														blog: [
+															"app/admin/components/BlogTab.jsx",
+															"lib/api/blog.js",
+															"pages/blog",
+														],
+														seo: [
+															"lib/modules/SEO.jsx",
+															"lib/config/seo.js",
+															"public/docs",
+														],
+													}}
+												/>
+											))}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</motion.div>
 				</section>
 
 				{/* SEO Section */}
