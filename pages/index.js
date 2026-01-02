@@ -149,6 +149,7 @@ const LandingPage = () => {
 	const [activeSeoTab, setActiveSeoTab] = useState("meta");
 	const [activeRepoTab, setActiveRepoTab] = useState("supabase-starter");
 	const [activeTimeCard, setActiveTimeCard] = useState(null);
+	const [activeAdminTab, setActiveAdminTab] = useState("authentication");
 
 	// Get tech stack links for the active repository tab
 	const getRepoTechStack = () => {
@@ -1829,6 +1830,480 @@ const LandingPage = () => {
 							</div>
 						</div>
 					</motion.div>
+				</section>
+
+				{/* Advanced Admin Panel Section */}
+				<section id="admin-panel" className="py-20">
+					<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+						<div className="text-center mb-12">
+							<div className="flex items-center justify-center gap-2 mb-3">
+								<Settings className="w-6 h-6 text-zinc-900" />
+								<h2 className="text-2xl font-bold text-zinc-900">
+									Advanced Admin Panel
+								</h2>
+							</div>
+							<p className="text-base text-zinc-600">
+								The only admin panel you need to run any SAAS business online
+							</p>
+						</div>
+
+						{/* Admin Panel Tabs */}
+						<div className="max-w-4xl mx-auto">
+							{/* Tab Buttons */}
+							<div className="flex flex-wrap items-center justify-start gap-2 mb-4 p-2 border border-zinc-900">
+								<button
+									onClick={() => setActiveAdminTab("authentication")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "authentication"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Authentication
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("blogs")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "blogs"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Blogs
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("email")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "email"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Email Management
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("messages")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "messages"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Messages
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("customers")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "customers"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Customers
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("payments")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "payments"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Payments
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("invoices")}
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
+										activeAdminTab === "invoices"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									Invoices
+								</button>
+							</div>
+
+							{/* Tab Content */}
+							<AnimatePresence mode="wait">
+								{activeAdminTab === "authentication" && (
+									<motion.div
+										key="authentication"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Authentication Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														User Management & Roles
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete user management system with role-based
+														access control, user roles, and permissions
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Authentication Methods
+													</p>
+													<p className="text-xs text-zinc-600">
+														Support for email/password authentication and Google
+														OAuth integration with secure session management
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Security Features
+													</p>
+													<p className="text-xs text-zinc-600">
+														Email verification, password reset flows, and secure
+														token management for enhanced security
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "blogs" && (
+									<motion.div
+										key="blogs"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Blog Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Rich Text Editor
+													</p>
+													<p className="text-xs text-zinc-600">
+														Powerful Tiptap editor with formatting options,
+														images, links, and markdown support for creating
+														engaging content
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Content Management
+													</p>
+													<p className="text-xs text-zinc-600">
+														Create, edit, publish, and manage blog posts with
+														draft status, scheduling, and SEO optimization
+														features
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Category & Tag System
+													</p>
+													<p className="text-xs text-zinc-600">
+														Organize content with categories and tags for better
+														navigation and content discovery
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "email" && (
+									<motion.div
+										key="email"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Email Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Email Templates
+													</p>
+													<p className="text-xs text-zinc-600">
+														Pre-built HTML email templates for transactional
+														emails, newsletters, and marketing campaigns with
+														customization options
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Bulk Email Sending
+													</p>
+													<p className="text-xs text-zinc-600">
+														Send emails to multiple recipients, manage
+														subscriber lists, and track email delivery status
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Resend Integration
+													</p>
+													<p className="text-xs text-zinc-600">
+														Seamless integration with Resend API for reliable
+														email delivery with webhook support for tracking
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "messages" && (
+									<motion.div
+										key="messages"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Message Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Contact Form Messages
+													</p>
+													<p className="text-xs text-zinc-600">
+														View and manage all contact form submissions with
+														reply functionality and message status tracking
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Message Filtering
+													</p>
+													<p className="text-xs text-zinc-600">
+														Filter messages by status, date, and priority with
+														search functionality for quick access
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Email Notifications
+													</p>
+													<p className="text-xs text-zinc-600">
+														Automatic email notifications for new messages with
+														configurable alert settings
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "customers" && (
+									<motion.div
+										key="customers"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Customer Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Customer Database
+													</p>
+													<p className="text-xs text-zinc-600">
+														Comprehensive customer database with profile
+														information, subscription status, and activity
+														history
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Customer Analytics
+													</p>
+													<p className="text-xs text-zinc-600">
+														Track customer engagement, subscription metrics, and
+														revenue per customer with detailed analytics
+														dashboard
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Bulk Actions
+													</p>
+													<p className="text-xs text-zinc-600">
+														Perform bulk operations like sending emails,
+														updating status, and exporting customer data
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "payments" && (
+									<motion.div
+										key="payments"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Payment Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Payment Processing
+													</p>
+													<p className="text-xs text-zinc-600">
+														Integrated payment processing with Stripe and Polar
+														for one-time payments and subscription management
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Transaction History
+													</p>
+													<p className="text-xs text-zinc-600">
+														Complete transaction history with filtering, search,
+														and export capabilities for financial reporting
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Webhook Management
+													</p>
+													<p className="text-xs text-zinc-600">
+														Automatic webhook handling for payment events,
+														subscription updates, and refund processing
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "invoices" && (
+									<motion.div
+										key="invoices"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Invoice Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Invoice Generation
+													</p>
+													<p className="text-xs text-zinc-600">
+														Automatically generate professional invoices for
+														subscriptions and one-time payments with
+														customizable templates
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Invoice Tracking
+													</p>
+													<p className="text-xs text-zinc-600">
+														Track invoice status, payment due dates, and send
+														automated reminders for overdue invoices
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														PDF Export & Email
+													</p>
+													<p className="text-xs text-zinc-600">
+														Export invoices as PDF and automatically email them
+														to customers with download links
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+							</AnimatePresence>
+						</div>
+					</div>
 				</section>
 
 				{/* SEO Section */}
