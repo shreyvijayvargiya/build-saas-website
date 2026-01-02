@@ -113,41 +113,6 @@ STRIPE_WEBHOOK_SECRET=${config.stripe.webhookSecret}
 		return envContent;
 	};
 
-	const downloadEnvFile = () => {
-		const envContent = generateEnvFile();
-		const blob = new Blob([envContent], { type: "text/plain" });
-		const url = URL.createObjectURL(blob);
-		const a = document.createElement("a");
-		a.href = url;
-		a.download = ".env.local";
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
-		URL.revokeObjectURL(url);
-		toast.success(".env.local file downloaded!");
-	};
-
-	const copyEnvToClipboard = async () => {
-		const envContent = generateEnvFile();
-		try {
-			await navigator.clipboard.writeText(envContent);
-			toast.success("Environment variables copied to clipboard!");
-		} catch (error) {
-			toast.error("Failed to copy to clipboard");
-		}
-	};
-
-	const generateRepositoryInfo = () => {
-		return {
-			repoUrl:
-				config.github.username && config.github.repoName
-					? `https://github.com/${config.github.username}/${config.github.repoName}`
-					: null,
-			vercelUrl: config.vercel.projectName
-				? `https://${config.vercel.projectName}.vercel.app`
-				: null,
-		};
-	};
 
 	const fetchAST = async () => {
 		setAstLoading(true);
@@ -254,7 +219,6 @@ STRIPE_WEBHOOK_SECRET=${config.stripe.webhookSecret}
 	};
 
 	const totalSteps = 5;
-	const repoInfo = generateRepositoryInfo();
 
 	return (
 		<>

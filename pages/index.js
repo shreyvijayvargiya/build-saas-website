@@ -31,8 +31,88 @@ import {
 	Play,
 	Clock,
 	ExternalLink,
+	Folder,
+	FolderOpen,
+	File,
+	ChevronRight as ChevronRightIcon,
+	Github,
 } from "lucide-react";
 import SEO from "../lib/modules/SEO";
+
+// Tree Item Component for Time Saved Section
+const TreeItem = ({ node, level = 0, activeCard, cardFilesMap }) => {
+	const isFile = node.type === "file";
+	const isDirectory = node.type === "directory";
+	const hasChildren = isDirectory && node.children && node.children.length > 0;
+
+	// Check if this node should be highlighted
+	const isActive =
+		activeCard &&
+		cardFilesMap[activeCard]?.some((filePath) => {
+			const normalizedPath = filePath.replace(/\/$/, ""); // Remove trailing slash
+			const nodePath = node.path;
+			// Exact match or node is inside the directory
+			return (
+				nodePath === normalizedPath || nodePath.startsWith(normalizedPath + "/")
+			);
+		});
+
+	return (
+		<div className="select-none">
+			<div
+				className={`flex items-center justify-between gap-2 py-1 px-2 rounded ${
+					isActive ? "bg-zinc-100 border border-zinc-300" : "hover:bg-zinc-50"
+				}`}
+				style={{ paddingLeft: `${level * 16 + 8}px` }}
+			>
+				<div className="flex items-center gap-2 flex-1 min-w-0">
+					{isDirectory && hasChildren ? (
+						<ChevronRightIcon className="w-3 h-3 flex-shrink-0 opacity-50" />
+					) : (
+						<div className="w-3 h-3 flex-shrink-0" />
+					)}
+					{isDirectory ? (
+						<Folder
+							className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-blue-600" : "text-blue-500"}`}
+						/>
+					) : (
+						<File
+							className={`w-4 h-4 flex-shrink-0 ${isActive ? "text-zinc-700" : "text-zinc-600"}`}
+						/>
+					)}
+					<span
+						className={`text-sm font-mono truncate ${isActive ? "text-zinc-900" : "text-zinc-900"}`}
+					>
+						{node.name}
+					</span>
+				</div>
+				{isFile && node.lines && (
+					<span className="text-xs text-zinc-500 flex-shrink-0">
+						{node.lines.toLocaleString()} lines
+					</span>
+				)}
+				{isDirectory && node.fileCount !== undefined && (
+					<span className="text-xs text-zinc-500 flex-shrink-0">
+						{node.fileCount} {node.fileCount === 1 ? "file" : "files"}
+					</span>
+				)}
+			</div>
+			{hasChildren && (
+				<div>
+					{node.children.map((child) => (
+						<TreeItem
+							key={child.path}
+							node={child}
+							level={level + 1}
+							activeCard={activeCard}
+							cardFilesMap={cardFilesMap}
+						/>
+					))}
+				</div>
+			)}
+		</div>
+	);
+};
 
 const LandingPage = () => {
 	const [expandedFaq, setExpandedFaq] = useState(null);
@@ -40,6 +120,7 @@ const LandingPage = () => {
 	const [showLegalModal, setShowLegalModal] = useState(false);
 	const [activeSeoTab, setActiveSeoTab] = useState("meta");
 	const [activeRepoTab, setActiveRepoTab] = useState("supabase-starter");
+	const [activeTimeCard, setActiveTimeCard] = useState(null);
 
 	// Get tech stack links for the active repository tab
 	const getRepoTechStack = () => {
@@ -201,6 +282,36 @@ const LandingPage = () => {
 			title: "Modern UI",
 			description: "Beautiful, responsive design",
 		},
+		{
+			icon: FileText,
+			title: "Tiptap Editor",
+			description: "Rich text editor for blog posts and content",
+		},
+		{
+			icon: Lock,
+			title: "Signup/Login Modal",
+			description: "Complete authentication modals and flows",
+		},
+		{
+			icon: Mail,
+			title: "Messages",
+			description: "Email messaging system integrated",
+		},
+		{
+			icon: Users,
+			title: "Customer Management",
+			description: "Full customer management system",
+		},
+		{
+			icon: ShieldCheck,
+			title: "Roles Based Access",
+			description: "Role-based access control system",
+		},
+		{
+			icon: MailIcon,
+			title: "Email Templates HTML",
+			description: "Pre-built HTML email templates",
+		},
 	];
 
 	const pricingFeatures = [
@@ -231,6 +342,13 @@ const LandingPage = () => {
 		{ text: "TipTap rich text editor", icon: FileText },
 		{ text: "Lucide React icons", icon: Sparkles },
 		{ text: "TanStack Query", icon: Code2 },
+		{ text: "Signup/Login modal and features", icon: Lock },
+		{ text: "Messages system", icon: Mail },
+		{ text: "Customer management", icon: Users },
+		{ text: "Roles based access control", icon: ShieldCheck },
+		{ text: "Email templates HTML", icon: MailIcon },
+		{ text: "Clean, maintainable code", icon: Code2 },
+		{ text: "Responsive design", icon: Monitor },
 	];
 
 	const faqs = [
@@ -557,12 +675,12 @@ const LandingPage = () => {
 								initial={{ opacity: 0, scale: 0.95 }}
 								animate={{ opacity: 1, scale: 1 }}
 								transition={{ duration: 0.6, delay: 0.4 }}
-								className="relative rounded-2xl overflow-hidden"
+								className="relative  overflow-hidden"
 							>
 								<img
 									src="https://b4fcijccdw.ufs.sh/f/mVUSE925dTRYo9pGrkQGL8ds7z9t2vD05fIReEJKO3Cy1jZP"
 									alt="SAAS Starter - Build Your SaaS 10x Faster"
-									className="w-full h-full object-cover rounded-2xl border border-zinc-200"
+									className="w-full h-full object-cover  border border-zinc-200"
 								/>
 							</motion.div>
 						</div>
@@ -616,10 +734,10 @@ const LandingPage = () => {
 						className="mt-12 mb-12"
 					>
 						<div className="max-w-4xl mx-auto">
-							<p className="text-center w-fit mx-auto p-1 my-1 text-xs bg-zinc-50  text-zinc-500">
+							<p className="text-center w-fit p-1 my-1 text-xs bg-zinc-50  text-zinc-500">
 								Why choose buildsaas
 							</p>
-							<div className="bg-white border-2 border-zinc-900 rounded-2xl p-6 shadow-lg">
+							<div className="bg-white border border-zinc-900 p-6">
 								<div className="text-center mb-6">
 									<div className="flex items-center justify-center gap-2 mb-2">
 										<Clock className="w-5 h-5 text-zinc-900" />
@@ -631,109 +749,416 @@ const LandingPage = () => {
 										Hours of development time you save by using our boilerplate
 									</p>
 								</div>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 0.9 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											8+ hours
+								<div className="flex flex-col md:flex-row gap-6">
+									{/* Left Side - Cards */}
+									<div className="flex-1 flex flex-col border border-zinc-900 p-2 gap-1">
+										{[
+											{
+												id: "nextjs",
+												hours: "8+ hours",
+												title: "Next.js setup, routing & configuration",
+												icon: Code2,
+												files: [
+													"pages/",
+													"next.config.js",
+													"package.json",
+													"tailwind.config.js",
+												],
+											},
+											{
+												id: "auth",
+												hours: "6+ hours",
+												title: "Authentication (Email/Password & Google OAuth)",
+												icon: Shield,
+												files: [
+													"lib/firebase.js",
+													"lib/api/auth.js",
+													"pages/api/auth/",
+												],
+											},
+											{
+												id: "email",
+												hours: "5+ hours",
+												title: "Resend email API, templates & webhooks",
+												icon: Mail,
+												files: [
+													"lib/api/emails.js",
+													"pages/api/emails/",
+													"public/html/",
+												],
+											},
+											{
+												id: "payment",
+												hours: "15+ hours",
+												title: "Stripe payment integration & webhooks",
+												icon: CreditCard,
+												files: [
+													"lib/api/payments.js",
+													"pages/api/polar/",
+													"lib/utils/polar/",
+												],
+											},
+											{
+												id: "admin",
+												hours: "12+ hours",
+												title:
+													"Admin panel with tables (Customers, Payments, Subscriptions)",
+												icon: Settings,
+												files: [
+													"app/admin/",
+													"pages/admin/",
+													"lib/api/customers.js",
+												],
+											},
+											{
+												id: "blog",
+												hours: "4+ hours",
+												title: "Blog system with Tiptap editor",
+												icon: FileText,
+												files: [
+													"app/admin/components/BlogTab.jsx",
+													"lib/api/blog.js",
+													"pages/blog/",
+												],
+											},
+											{
+												id: "seo",
+												hours: "10+ hours",
+												title: "SEO setup, documentation & deployment",
+												icon: Globe,
+												files: [
+													"lib/modules/SEO.jsx",
+													"lib/config/seo.js",
+													"public/docs/",
+												],
+											},
+										].map((card, index) => {
+											const IconComponent = card.icon;
+											return (
+												<motion.div
+													key={card.id}
+													initial={{ opacity: 0, x: -20 }}
+													animate={{ opacity: 1, x: 0 }}
+													transition={{
+														duration: 0.4,
+														delay: 0.9 + index * 0.1,
+													}}
+													onClick={() =>
+														setActiveTimeCard(
+															activeTimeCard === card.id ? null : card.id
+														)
+													}
+													className={`p-2 cursor-pointer transition-all flex items-center gap-2.5 ${
+														activeTimeCard === card.id
+															? "bg-zinc-100 border-2 border-zinc-900"
+															: "bg-zinc-50 border border-zinc-200 hover:border-zinc-300"
+													}`}
+												>
+													<IconComponent
+														className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+															activeTimeCard === card.id
+																? "text-zinc-900"
+																: "text-zinc-600"
+														}`}
+													/>
+													<div className="flex-1 min-w-0">
+														<div
+															className={`text-lg font-bold mb-0.5 ${activeTimeCard === card.id ? "text-zinc-900" : "text-zinc-900"}`}
+														>
+															{card.hours}
+														</div>
+														<div
+															className={`text-xs ${activeTimeCard === card.id ? "text-zinc-700" : "text-zinc-600"}`}
+														>
+															{card.title}
+														</div>
+													</div>
+												</motion.div>
+											);
+										})}
+										<div className="mt-3 p-2.5 bg-zinc-100 border border-zinc-300  text-center">
+											<div className="text-base font-bold text-zinc-900">
+												Total: <span className="text-xl">50+ hours</span> saved
+											</div>
 										</div>
-										<div className="text-xs text-zinc-600">
-											Next.js setup, routing & configuration
-										</div>
-									</motion.div>
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 1.0 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											6+ hours
-										</div>
-										<div className="text-xs text-zinc-600">
-											Authentication (Email/Password & Google OAuth)
-										</div>
-									</motion.div>
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 1.1 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											5+ hours
-										</div>
-										<div className="text-xs text-zinc-600">
-											Resend email API, templates & webhooks
-										</div>
-									</motion.div>
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 1.2 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											15+ hours
-										</div>
-										<div className="text-xs text-zinc-600">
-											Stripe payment integration & webhooks
-										</div>
-									</motion.div>
-								</div>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 1.3 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											12+ hours
-										</div>
-										<div className="text-xs text-zinc-600">
-											Admin panel with tables (Customers, Payments,
-											Subscriptions)
-										</div>
-									</motion.div>
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 1.4 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											4+ hours
-										</div>
-										<div className="text-xs text-zinc-600">
-											Blog system with Tiptap editor
-										</div>
-									</motion.div>
-									<motion.div
-										initial={{ opacity: 0, scale: 0.9 }}
-										animate={{ opacity: 1, scale: 1 }}
-										transition={{ duration: 0.4, delay: 1.5 }}
-										className="text-center p-4 bg-zinc-50  border border-zinc-200"
-									>
-										<div className="text-2xl font-bold text-zinc-900 mb-1">
-											10+ hours
-										</div>
-										<div className="text-xs text-zinc-600">
-											SEO setup, documentation & deployment
-										</div>
-									</motion.div>
-								</div>
-								<div className="mt-6 text-center">
-									<div className="text-lg font-bold text-zinc-900">
-										Total: <span className="text-2xl">50+ hours</span> saved
 									</div>
-									<p className="text-xs text-zinc-600 mt-1">
-										Start building your features instead of boilerplate code
-									</p>
+
+									{/* Right Side - Tree View */}
+									<div className="flex-1 border border-zinc-200 p-4 bg-zinc-50 max-h-[600px] overflow-y-auto">
+										<div className="text-xs font-semibold text-zinc-600 mb-3 uppercase tracking-wide">
+											Repository Structure
+										</div>
+										<div className="space-y-1">
+											{/* Simplified Tree Structure */}
+											{[
+												{
+													type: "file",
+													name: "next.config.js",
+													path: "next.config.js",
+													lines: 45,
+												},
+												{
+													type: "file",
+													name: "package.json",
+													path: "package.json",
+													lines: 120,
+												},
+												{
+													type: "file",
+													name: "tailwind.config.js",
+													path: "tailwind.config.js",
+													lines: 35,
+												},
+												{
+													type: "directory",
+													name: "pages",
+													path: "pages",
+													fileCount: 25,
+													children: [
+														{
+															type: "file",
+															name: "index.js",
+															path: "pages/index.js",
+															lines: 2579,
+														},
+														{
+															type: "file",
+															name: "_app.js",
+															path: "pages/_app.js",
+															lines: 85,
+														},
+														{
+															type: "directory",
+															name: "api",
+															path: "pages/api",
+															fileCount: 12,
+															children: [
+																{
+																	type: "directory",
+																	name: "auth",
+																	path: "pages/api/auth",
+																	fileCount: 3,
+																},
+																{
+																	type: "directory",
+																	name: "emails",
+																	path: "pages/api/emails",
+																	fileCount: 4,
+																},
+																{
+																	type: "directory",
+																	name: "polar",
+																	path: "pages/api/polar",
+																	fileCount: 5,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "admin",
+															path: "pages/admin",
+															fileCount: 2,
+														},
+														{
+															type: "directory",
+															name: "blog",
+															path: "pages/blog",
+															fileCount: 4,
+														},
+													],
+												},
+												{
+													type: "directory",
+													name: "lib",
+													path: "lib",
+													fileCount: 18,
+													children: [
+														{
+															type: "file",
+															name: "firebase.js",
+															path: "lib/firebase.js",
+															lines: 95,
+														},
+														{
+															type: "directory",
+															name: "api",
+															path: "lib/api",
+															fileCount: 8,
+															children: [
+																{
+																	type: "file",
+																	name: "auth.js",
+																	path: "lib/api/auth.js",
+																	lines: 320,
+																},
+																{
+																	type: "file",
+																	name: "emails.js",
+																	path: "lib/api/emails.js",
+																	lines: 280,
+																},
+																{
+																	type: "file",
+																	name: "payments.js",
+																	path: "lib/api/payments.js",
+																	lines: 450,
+																},
+																{
+																	type: "file",
+																	name: "blog.js",
+																	path: "lib/api/blog.js",
+																	lines: 380,
+																},
+																{
+																	type: "file",
+																	name: "customers.js",
+																	path: "lib/api/customers.js",
+																	lines: 210,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "modules",
+															path: "lib/modules",
+															fileCount: 1,
+															children: [
+																{
+																	type: "file",
+																	name: "SEO.jsx",
+																	path: "lib/modules/SEO.jsx",
+																	lines: 150,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "config",
+															path: "lib/config",
+															fileCount: 1,
+															children: [
+																{
+																	type: "file",
+																	name: "seo.js",
+																	path: "lib/config/seo.js",
+																	lines: 85,
+																},
+															],
+														},
+														{
+															type: "directory",
+															name: "utils",
+															path: "lib/utils",
+															fileCount: 5,
+															children: [
+																{
+																	type: "directory",
+																	name: "polar",
+																	path: "lib/utils/polar",
+																	fileCount: 3,
+																},
+															],
+														},
+													],
+												},
+												{
+													type: "directory",
+													name: "app",
+													path: "app",
+													fileCount: 15,
+													children: [
+														{
+															type: "directory",
+															name: "admin",
+															path: "app/admin",
+															fileCount: 12,
+															children: [
+																{
+																	type: "directory",
+																	name: "components",
+																	path: "app/admin/components",
+																	fileCount: 8,
+																	children: [
+																		{
+																			type: "file",
+																			name: "BlogTab.jsx",
+																			path: "app/admin/components/BlogTab.jsx",
+																			lines: 420,
+																		},
+																	],
+																},
+															],
+														},
+													],
+												},
+												{
+													type: "directory",
+													name: "public",
+													path: "public",
+													fileCount: 8,
+													children: [
+														{
+															type: "directory",
+															name: "html",
+															path: "public/html",
+															fileCount: 5,
+														},
+														{
+															type: "directory",
+															name: "docs",
+															path: "public/docs",
+															fileCount: 3,
+														},
+													],
+												},
+											].map((node) => (
+												<TreeItem
+													key={node.path}
+													node={node}
+													level={0}
+													activeCard={activeTimeCard}
+													cardFilesMap={{
+														nextjs: [
+															"next.config.js",
+															"package.json",
+															"tailwind.config.js",
+															"pages/",
+														],
+														auth: [
+															"lib/firebase.js",
+															"lib/api/auth.js",
+															"pages/api/auth",
+														],
+														email: [
+															"lib/api/emails.js",
+															"pages/api/emails",
+															"public/html",
+														],
+														payment: [
+															"lib/api/payments.js",
+															"pages/api/polar",
+															"lib/utils/polar",
+														],
+														admin: [
+															"app/admin",
+															"pages/admin",
+															"lib/api/customers.js",
+														],
+														blog: [
+															"app/admin/components/BlogTab.jsx",
+															"lib/api/blog.js",
+															"pages/blog",
+														],
+														seo: [
+															"lib/modules/SEO.jsx",
+															"lib/config/seo.js",
+															"public/docs",
+														],
+													}}
+												/>
+											))}
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -797,7 +1222,7 @@ const LandingPage = () => {
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
-									Supabase + Next.js + Polar
+									Supabase + Polar
 								</button>
 							</div>
 
@@ -1334,10 +1759,10 @@ const LandingPage = () => {
 						{/* SEO Tabs */}
 						<div className="max-w-4xl mx-auto">
 							{/* Tab Buttons */}
-							<div className="flex flex-wrap items-center justify-center gap-2 mb-8 border-b border-zinc-200">
+							<div className="flex flex-wrap items-center justify-start gap-2 mb-4 p-2 border border-zinc-900">
 								<button
 									onClick={() => setActiveSeoTab("meta")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
 										activeSeoTab === "meta"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
@@ -1347,7 +1772,7 @@ const LandingPage = () => {
 								</button>
 								<button
 									onClick={() => setActiveSeoTab("og")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
 										activeSeoTab === "og"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
@@ -1357,7 +1782,7 @@ const LandingPage = () => {
 								</button>
 								<button
 									onClick={() => setActiveSeoTab("twitter")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
 										activeSeoTab === "twitter"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
@@ -1367,7 +1792,7 @@ const LandingPage = () => {
 								</button>
 								<button
 									onClick={() => setActiveSeoTab("structured")}
-									className={`px-4 py-2 text-sm font-medium rounded-t-xl transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors ${
 										activeSeoTab === "structured"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
@@ -1386,7 +1811,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Meta Tags
@@ -1439,7 +1864,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Open Graph Tags
@@ -1491,7 +1916,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Twitter Cards
@@ -1541,7 +1966,7 @@ const LandingPage = () => {
 										animate={{ opacity: 1, y: 0 }}
 										exit={{ opacity: 0, y: -20 }}
 										transition={{ duration: 0.3 }}
-										className="bg-white border border-zinc-200 rounded-2xl p-6"
+										className="bg-white border border-zinc-900 p-6"
 									>
 										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
 											Structured Data
@@ -1613,7 +2038,7 @@ const LandingPage = () => {
 										className="p-4 border border-zinc-200  hover:border-zinc-300 transition-colors"
 									>
 										<div className="flex items-start gap-3">
-											<div className="p-1.5 bg-zinc-100 ">
+											<div className="p-1.5 ">
 												<IconComponent className="w-5 h-5 text-zinc-900" />
 											</div>
 											<div>
@@ -1650,11 +2075,11 @@ const LandingPage = () => {
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.6 }}
-								className="bg-white border-2 border-zinc-200 rounded-2xl p-6"
+								className="bg-white border-2 border-zinc-200  p-6"
 							>
 								<div className="text-center mb-6">
 									<h3 className="text-2xl font-bold text-zinc-900 mb-2">
-										Starter
+										SAAS Supabase Starter
 									</h3>
 									<div className="flex items-baseline justify-center gap-2">
 										<span className="text-3xl font-bold text-zinc-900">
@@ -1684,6 +2109,18 @@ const LandingPage = () => {
 									})}
 								</ul>
 
+								{/* Demo Link for Starter */}
+								<motion.a
+									href="https://buildsaas-supabase-starter.vercel.app/"
+									target="_blank"
+									rel="noopener noreferrer"
+									whileHover={{ scale: 1.02 }}
+									whileTap={{ scale: 0.98 }}
+									className="block text-center text-sm text-zinc-600 hover:text-zinc-900 hover:underline transition-colors mb-3"
+								>
+									Try Demo
+								</motion.a>
+
 								<motion.a
 									whileHover={{ scale: 1.02 }}
 									whileTap={{ scale: 0.98 }}
@@ -1696,16 +2133,16 @@ const LandingPage = () => {
 								</motion.a>
 							</motion.div>
 
-							{/* SAAS Starter Card */}
+							{/* SAAS PRO Card */}
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
 								transition={{ duration: 0.6, delay: 0.1 }}
-								className="bg-white border-2 border-zinc-900 rounded-2xl p-6"
+								className="bg-white border-2 border-zinc-900  p-6"
 							>
 								<div className="text-center mb-6">
 									<h3 className="text-2xl font-bold text-zinc-900 mb-2">
-										SAAS Starter
+										SAAS PRO
 									</h3>
 									<div className="flex items-baseline justify-center gap-2">
 										<span className="text-3xl font-bold text-zinc-900">
@@ -1735,6 +2172,18 @@ const LandingPage = () => {
 									})}
 								</ul>
 
+								{/* Demo Link for PRO */}
+								<motion.a
+									href="https://buildsaas-s18e.vercel.app/"
+									target="_blank"
+									rel="noopener noreferrer"
+									whileHover={{ scale: 1.02 }}
+									whileTap={{ scale: 0.98 }}
+									className="block text-center text-sm text-zinc-600 hover:text-zinc-900 hover:underline transition-colors mb-3"
+								>
+									Try Now
+								</motion.a>
+
 								<motion.a
 									whileHover={{ scale: 1.02 }}
 									whileTap={{ scale: 0.98 }}
@@ -1756,7 +2205,7 @@ const LandingPage = () => {
 
 				{/* Testimonials Section */}
 				<section id="testimonials" className="py-20">
-					<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-3">
 								What Our Users Say
@@ -1773,18 +2222,18 @@ const LandingPage = () => {
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.4, delay: index * 0.1 }}
-									className="bg-white rotate-2 border  shadow border-zinc-200  p-6 hover:border-zinc-300 hover:shadow-lg transition-all"
+									className="bg-white border border-zinc-900 overflow-hidden hover:bg-zinc-50 transition-all"
 								>
-									<div className="mb-4">
-										<p className="text-sm text-zinc-700 leading-relaxed">
-											"{testimonial.message}"
+									<div className="">
+										<p className="text-sm font-semibold text-zinc-900 p-2">
+											{testimonial.name}
 										</p>
 									</div>
-									<div className="flex items-center justify-between pt-4 border-t border-zinc-100">
+									<p className="text-sm text-zinc-700 leading-relaxed p-2">
+										"{testimonial.message}"
+									</p>
+									<div className="flex items-center justify-start p-2 border-t border-zinc-900">
 										<div>
-											<p className="text-sm font-semibold text-zinc-900">
-												{testimonial.name}
-											</p>
 											{testimonial.company && (
 												<p className="text-xs text-zinc-600">
 													{testimonial.company}
@@ -1826,21 +2275,21 @@ const LandingPage = () => {
 
 				{/* FAQ Section */}
 				<section id="faq" className="py-20 bg-white">
-					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-2xl mx-auto p-2">
 						<div className="text-center mb-12">
 							<h2 className="text-2xl font-bold text-zinc-900 mb-4">
 								Frequently Asked Questions
 							</h2>
 						</div>
 
-						<div className="space-y-4">
+						<div className="space-y-4 border border-zinc-900 p-2">
 							{faqs.map((faq) => (
 								<motion.div
 									key={faq.id}
 									initial={{ opacity: 0, y: 20 }}
 									animate={{ opacity: 1, y: 0 }}
 									transition={{ duration: 0.4 }}
-									className="border border-zinc-200  overflow-hidden"
+									className="border border-zinc-900 overflow-hidden"
 								>
 									<button
 										onClick={() =>
@@ -1875,23 +2324,23 @@ const LandingPage = () => {
 
 				{/* About Me Section */}
 				<section id="about-creator" className="py-20">
-					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="max-w-2xl mx-auto border border-zinc-900">
 						<motion.div
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ duration: 0.6 }}
-							className="bg-white rounded-2xl p-8"
+							className="space-y-2"
 						>
-							<div className="text-left mb-6">
-								<h2 className="text-2xl font-bold text-zinc-900 mb-3 flex gap-2 items-center justify-start">
+							<div className="text-left">
+								<h2 className="text-2xl p-2 font-bold text-zinc-900 flex gap-2 items-center justify-start border-b border-zinc-900">
 									<img
-										className="w-16 h-16 object-center rounded-full"
+										className="w-12 h-12 object-center rounded-full"
 										src="./shrey-img.JPG"
 									/>
 									About the Creator
 								</h2>
 							</div>
-							<div className="space-y-4 -rotate-2 hover:rotate-0 shadow-lg hover:shadow-none shadow-zinc-400 text-sm text-zinc-700 leading-relaxed border border-zinc-200 p-2  transition-all duration-75 ease-in">
+							<div className="text-sm text-zinc-700 leading-relaxed p-4 transition-all duration-75 ease-in">
 								<p>
 									Hello, I am Shrey, I am software developer with 6 years of
 									experience in companies, startups and now running my own small
@@ -1913,6 +2362,25 @@ const LandingPage = () => {
 									<p className="mt-4 font-medium text-zinc-900">Cheers</p>
 									<p className="font-medium text-zinc-900">Shrey</p>
 								</div>
+							</div>
+							{/* Social Links */}
+							<div className="flex items-center justify-start gap-4 p-2 border-t border-zinc-900">
+								<motion.a
+									href="https://twitter.com/@treyvijay"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="p-2 rounded-lg hover:bg-zinc-50 transition-colors"
+								>
+									<Twitter className="w-5 h-5 text-zinc-700" />
+								</motion.a>
+								<motion.a
+									href="https://github.com/shreyvijayvargiya"
+									target="_blank"
+									rel="noopener noreferrer"
+									className="p-2 rounded-lg hover:bg-zinc-50 transition-colors"
+								>
+									<Github className="w-5 h-5 text-zinc-700" />
+								</motion.a>
 							</div>
 						</motion.div>
 					</div>
