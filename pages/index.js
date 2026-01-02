@@ -36,6 +36,8 @@ import {
 	File,
 	ChevronRight as ChevronRightIcon,
 	Github,
+	Receipt,
+	MessageSquare,
 } from "lucide-react";
 import SEO from "../lib/modules/SEO";
 
@@ -312,12 +314,21 @@ const LandingPage = () => {
 			title: "Email Templates HTML",
 			description: "Pre-built HTML email templates",
 		},
+		{
+			icon: Receipt,
+			title: "Invoice Creation",
+			description: "Generate and manage invoices for your customers",
+		},
 	];
 
 	const pricingFeatures = [
 		{ text: "Complete Next.js 15 boilerplate", icon: Rocket },
 		{ text: "Firebase Authentication setup", icon: Shield },
-		{ text: "Stripe payment integration", icon: CreditCard },
+		{ text: "Payments with Stripe and Polar", icon: CreditCard },
+		{ text: "Database setup (Firebase/Supabase)", icon: Database },
+		{ text: "Invoice creation system", icon: Receipt },
+		{ text: "Customer management", icon: Users },
+		{ text: "Contact message management", icon: MessageSquare },
 		{ text: "Resend email integration", icon: MailIcon },
 		{ text: "Admin dashboard with all features", icon: Settings },
 		{ text: "Blog system with editor", icon: FileText },
