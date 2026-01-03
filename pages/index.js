@@ -38,8 +38,15 @@ import {
 	Github,
 	Receipt,
 	MessageSquare,
+	LayoutGrid,
+	UsersRound,
+	AlertCircle,
+	Package,
+	Calendar,
+	CheckCircle,
 } from "lucide-react";
 import SEO from "../lib/modules/SEO";
+import Footer from "../app/components/Footer";
 
 // Polar Icon Component
 const PolarIcon = ({ className = "w-4 h-4" }) => (
@@ -364,6 +371,32 @@ const LandingPage = () => {
 			title: "Invoice Creation",
 			description: "Generate and manage invoices for your customers",
 		},
+		{
+			icon: LayoutGrid,
+			title: "Task Management",
+			description: "Kanban board with drag and drop task management",
+		},
+		{
+			icon: UsersRound,
+			title: "Waitlist Management",
+			description: "Complete waitlist system with messaging capabilities",
+		},
+		{
+			icon: AlertCircle,
+			title: "Issue Tracking",
+			description: "Report and track issues with status management",
+		},
+		{
+			icon: Package,
+			title: "Product Management",
+			description: "Full CRUD operations for products with Polar API",
+		},
+		{
+			icon: Calendar,
+			title: "Content Scheduling",
+			description:
+				"Schedule blog posts and email campaigns for future publishing",
+		},
 	];
 
 	const pricingFeatures = [
@@ -371,14 +404,19 @@ const LandingPage = () => {
 		{ text: "Firebase Authentication setup", icon: Shield },
 		{ text: "Payments with Stripe and Polar", icon: CreditCard },
 		{ text: "Database setup (Firebase/Supabase)", icon: Database },
-		{ text: "Invoice creation system", icon: Receipt },
-		{ text: "Customer management", icon: Users },
+		{ text: "Invoice creation & PDF generation system", icon: Receipt },
+		{ text: "Customer & subscriber management", icon: Users },
 		{ text: "Contact message management", icon: MessageSquare },
 		{ text: "Resend email integration", icon: MailIcon },
 		{ text: "Admin dashboard with all features", icon: Settings },
-		{ text: "Blog system with editor", icon: FileText },
-		{ text: "Email newsletter system", icon: Send },
+		{ text: "Blog system with Tiptap editor & scheduling", icon: FileText },
+		{ text: "Email newsletter system with scheduling", icon: Send },
 		{ text: "User management system", icon: Users },
+		{ text: "Task Management (Kanban Board)", icon: LayoutGrid },
+		{ text: "Waitlist Management System", icon: UsersRound },
+		{ text: "Issue Tracking System", icon: AlertCircle },
+		{ text: "Team & Role-Based Access Control (RBAC)", icon: ShieldCheck },
+		{ text: "Product Management with Polar API", icon: Package },
 		{ text: "SEO optimization", icon: Globe },
 		{ text: "Comprehensive documentation", icon: BookOpen },
 		{ text: "Clean, maintainable code", icon: Code2 },
@@ -1499,6 +1537,83 @@ const LandingPage = () => {
 													"public/docs/",
 												],
 											},
+											{
+												id: "task",
+												hours: "8+ hours",
+												title: "Task Management (Kanban Board)",
+												icon: LayoutGrid,
+												files: [
+													"app/admin/components/TasksTab.jsx",
+													"lib/api/tasks.js",
+													"pages/api/tasks/",
+												],
+											},
+											{
+												id: "waitlist",
+												hours: "4+ hours",
+												title: "Waitlist Management System",
+												icon: UsersRound,
+												files: [
+													"lib/api/waitlist.js",
+													"pages/api/waitlist/",
+													"app/admin/components/WaitlistTab.jsx",
+												],
+											},
+											{
+												id: "issue",
+												hours: "3+ hours",
+												title: "Issue Tracking System",
+												icon: AlertCircle,
+												files: [
+													"lib/api/issues.js",
+													"pages/api/issues/",
+													"app/admin/components/IssuesTab.jsx",
+												],
+											},
+											{
+												id: "team-rbac",
+												hours: "10+ hours",
+												title: "Team & Role-Based Access Control (RBAC)",
+												icon: ShieldCheck,
+												files: [
+													"lib/api/teams.js",
+													"lib/config/roles-config.js",
+													"lib/utils/getUserRole.js",
+												],
+											},
+											{
+												id: "invoice",
+												hours: "8+ hours",
+												title: "Invoice Creation & Management System",
+												icon: Receipt,
+												files: [
+													"lib/api/invoices.js",
+													"pages/api/invoices/",
+													"app/admin/components/InvoicesTab.jsx",
+												],
+											},
+											{
+												id: "product",
+												hours: "6+ hours",
+												title: "Product Management with Polar API",
+												icon: Package,
+												files: [
+													"lib/api/products.js",
+													"pages/api/products/",
+													"lib/utils/polar/",
+												],
+											},
+											{
+												id: "scheduling",
+												hours: "4+ hours",
+												title: "Email & Blog Scheduling System",
+												icon: Calendar,
+												files: [
+													"app/admin/components/EmailTab.jsx",
+													"app/admin/components/BlogTab.jsx",
+													"lib/api/blog.js",
+												],
+											},
 										].map((card, index) => {
 											const IconComponent = card.icon;
 											return (
@@ -1545,7 +1660,7 @@ const LandingPage = () => {
 										})}
 										<div className="mt-3 p-2.5 bg-zinc-100 border border-zinc-300  text-center">
 											<div className="text-base font-bold text-zinc-900">
-												Total: <span className="text-xl">50+ hours</span> saved
+												Total: <span className="text-xl">100+ hours</span> saved
 											</div>
 										</div>
 									</div>
@@ -1853,73 +1968,135 @@ const LandingPage = () => {
 							<div className="flex flex-wrap items-center justify-start gap-2 mb-4 p-2 border border-zinc-900">
 								<button
 									onClick={() => setActiveAdminTab("authentication")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "authentication"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<Shield className="w-4 h-4" />
 									Authentication
 								</button>
 								<button
 									onClick={() => setActiveAdminTab("blogs")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "blogs"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<FileText className="w-4 h-4" />
 									Blogs
 								</button>
 								<button
 									onClick={() => setActiveAdminTab("email")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "email"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<MailIcon className="w-4 h-4" />
 									Email Management
 								</button>
 								<button
 									onClick={() => setActiveAdminTab("messages")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "messages"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<MessageSquare className="w-4 h-4" />
 									Messages
 								</button>
 								<button
 									onClick={() => setActiveAdminTab("customers")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "customers"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<Users className="w-4 h-4" />
 									Customers
 								</button>
 								<button
 									onClick={() => setActiveAdminTab("payments")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "payments"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<CreditCard className="w-4 h-4" />
 									Payments
 								</button>
 								<button
 									onClick={() => setActiveAdminTab("invoices")}
-									className={`px-2 py-1 text-sm font-medium transition-colors ${
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
 										activeAdminTab === "invoices"
 											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
 											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
 									}`}
 								>
+									<Receipt className="w-4 h-4" />
 									Invoices
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("subscribers")}
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
+										activeAdminTab === "subscribers"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									<UsersRound className="w-4 h-4" />
+									Subscribers
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("teams")}
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
+										activeAdminTab === "teams"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									<ShieldCheck className="w-4 h-4" />
+									Teams & RBAC
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("tasks")}
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
+										activeAdminTab === "tasks"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									<LayoutGrid className="w-4 h-4" />
+									Tasks
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("waitlist")}
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
+										activeAdminTab === "waitlist"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									<UsersRound className="w-4 h-4" />
+									Waitlist
+								</button>
+								<button
+									onClick={() => setActiveAdminTab("issues")}
+									className={`px-2 py-1 text-sm font-medium transition-colors flex items-center gap-2 ${
+										activeAdminTab === "issues"
+											? "bg-zinc-900 text-white border-b-2 border-zinc-900"
+											: "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100"
+									}`}
+								>
+									<AlertCircle className="w-4 h-4" />
+									Issues
 								</button>
 							</div>
 
@@ -2295,6 +2472,251 @@ const LandingPage = () => {
 													<p className="text-xs text-zinc-600">
 														Export invoices as PDF and automatically email them
 														to customers with download links
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "subscribers" && (
+									<motion.div
+										key="subscribers"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Subscriber Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Subscriber Database
+													</p>
+													<p className="text-xs text-zinc-600">
+														Manage all subscribers with subscription status,
+														subscription plans, and payment history
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Subscription Lifecycle
+													</p>
+													<p className="text-xs text-zinc-600">
+														Track subscription creation, renewal, cancellation,
+														and expiration with automated email notifications
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Bulk Email to Subscribers
+													</p>
+													<p className="text-xs text-zinc-600">
+														Send targeted email campaigns to all active
+														subscribers with delivery tracking
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "teams" && (
+									<motion.div
+										key="teams"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Team & Role-Based Access Control
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Role System
+													</p>
+													<p className="text-xs text-zinc-600">
+														Four role levels: Admin, Editor, Author, Viewer with
+														granular permissions per resource
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Team Management
+													</p>
+													<p className="text-xs text-zinc-600">
+														Add, update, and remove team members with
+														email-based management and role assignment
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Permission System
+													</p>
+													<p className="text-xs text-zinc-600">
+														Fine-grained permissions: View, Create, Edit,
+														Delete, Publish, Send with resource-specific
+														controls
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "tasks" && (
+									<motion.div
+										key="tasks"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Task Management (Kanban Board)
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Kanban Board
+													</p>
+													<p className="text-xs text-zinc-600">
+														Visual task management with drag and drop,
+														three-column board (Backlog, In Progress, Done) with
+														real-time updates
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Task Types & Priorities
+													</p>
+													<p className="text-xs text-zinc-600">
+														Categorize tasks by type (Task, Bug, Feature,
+														Improvement) and priority (High, Medium, Low) with
+														color coding
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Task Assignment & Views
+													</p>
+													<p className="text-xs text-zinc-600">
+														Assign tasks to team members, multiple view modes
+														(Kanban, List, Table), and advanced filtering with
+														Fuse.js search
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "waitlist" && (
+									<motion.div
+										key="waitlist"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Waitlist Management
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Waitlist Database
+													</p>
+													<p className="text-xs text-zinc-600">
+														Add, remove, and manage waitlist entries with search
+														and sort functionality by name, email, or date
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Waitlist Messaging
+													</p>
+													<p className="text-xs text-zinc-600">
+														Send messages and email campaigns to waitlist
+														members with email integration
+													</p>
+												</div>
+											</div>
+										</div>
+									</motion.div>
+								)}
+
+								{activeAdminTab === "issues" && (
+									<motion.div
+										key="issues"
+										initial={{ opacity: 0, y: 20 }}
+										animate={{ opacity: 1, y: 0 }}
+										exit={{ opacity: 0, y: -20 }}
+										transition={{ duration: 0.3 }}
+										className="bg-white border border-zinc-900 p-6"
+									>
+										<h3 className="text-lg font-semibold text-zinc-900 mb-4">
+											Issue Tracking
+										</h3>
+										<div className="space-y-3">
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Issue Reporting
+													</p>
+													<p className="text-xs text-zinc-600">
+														Report and track issues with status tracking and
+														search functionality for quick resolution
+													</p>
+												</div>
+											</div>
+											<div className="flex items-start gap-3">
+												<Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+												<div>
+													<p className="text-sm font-medium text-zinc-900">
+														Issue Management
+													</p>
+													<p className="text-xs text-zinc-600">
+														View all issues, update status, assign to team
+														members, and track resolution progress
 													</p>
 												</div>
 											</div>
@@ -2760,11 +3182,21 @@ const LandingPage = () => {
 								>
 									Buy Now
 								</motion.a>
+
+								{/* Pricing Comparison Link */}
+								<motion.a
+									href="/pricing-comparison"
+									whileHover={{ scale: 1.02 }}
+									whileTap={{ scale: 0.98 }}
+									className="block text-center text-xs text-zinc-600 hover:text-zinc-900 hover:underline transition-colors mt-3"
+								>
+									View detailed feature comparison →
+								</motion.a>
 							</motion.div>
 						</div>
 
-						<p className="text-center text-xs text-zinc-600 mt-4">
-							One time payment • Forever yours • All upgrades included
+						<p className="text-center text-xs text-zinc-600 mt-4 gap-2 flex items-center justify-center">
+							<CheckCircle className="w-4 h-4 text-green-600" /> One time payment  <CheckCircle className="w-4 h-4 text-green-600" /> Forever yours  <CheckCircle className="w-4 h-4 text-green-600" /> All upgrades included
 						</p>
 					</div>
 				</section>
@@ -2952,63 +3384,7 @@ const LandingPage = () => {
 					</div>
 				</section>
 
-				{/* Footer */}
-				<footer className="py-12 border-t border-zinc-100">
-					<div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-						<div className="text-center mb-8">
-							<div className="flex items-center justify-center gap-2 mb-3">
-								<Rocket className="w-5 h-5" />
-								<h3 className="text-lg font-bold">SAAS Starter</h3>
-							</div>
-							<p className="text-sm text-zinc-900 max-w-2xl mx-auto mb-5">
-								Complete SaaS boilerplate to build your application faster. Get
-								started in minutes with authentication, payments, admin panel,
-								and more.
-							</p>
-							<div className="flex flex-col items-center gap-3">
-								<div className="flex items-center justify-center gap-5">
-									<a
-										href="https://twitter.com/@treyvijay"
-										target="_blank"
-										rel="noopener noreferrer"
-										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
-									>
-										<Twitter className="w-4 h-4" />
-										<span>Twitter</span>
-									</a>
-									<a
-										href="mailto:shreyvijayvargiya26@gmail.com"
-										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
-									>
-										<Mail className="w-4 h-4" />
-										<span>Email</span>
-									</a>
-								</div>
-								<div className="flex items-center justify-center gap-4">
-									<button
-										onClick={() => setShowPrivacyModal(true)}
-										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
-									>
-										<ShieldCheck className="w-4 h-4" />
-										<span>Privacy</span>
-									</button>
-									<button
-										onClick={() => setShowLegalModal(true)}
-										className="flex items-center gap-1.5 text-xs text-zinc-800 hover:text-black hover:bg-zinc-50 p-1 transition-colors"
-									>
-										<Scale className="w-4 h-4" />
-										<span>Legal</span>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div className="pt-6 text-center text-xs text-zinc-500">
-							<p>
-								© {new Date().getFullYear()} SAAS Starter. All rights reserved.
-							</p>
-						</div>
-					</div>
-				</footer>
+				<Footer />
 
 				{/* Privacy Modal */}
 				<AnimatePresence>
