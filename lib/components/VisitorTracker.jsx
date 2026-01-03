@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { generateFingerprint } from "../utils/fingerprint";
+import { getBrowserGeolocation } from "../utils/geolocation";
 
 const VisitorTracker = () => {
 	const hasTracked = useRef(false);
@@ -20,9 +21,12 @@ const VisitorTracker = () => {
 		// Generate fingerprint
 		const { fingerprint, details } = generateFingerprint();
 
-		// Track visitor
+		// Track visitor with geolocation
 		const trackVisitor = async () => {
 			try {
+				// Try to get browser geolocation (may require permission)
+				const browserLocation = await getBrowserGeolocation();
+
 				const response = await fetch("/api/visitors/track", {
 					method: "POST",
 					headers: {
@@ -31,6 +35,7 @@ const VisitorTracker = () => {
 					body: JSON.stringify({
 						fingerprint,
 						browserDetails: details,
+						browserLocation, // May be null if permission denied or unavailable
 					}),
 				});
 
