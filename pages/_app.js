@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 import { store, persistor } from "../lib/store/store";
 import SEO from "../lib/modules/SEO";
+import VisitorTracker from "../lib/components/VisitorTracker";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -40,6 +41,8 @@ const MyApp = ({ Component, pageProps }) => {
 		<QueryClientProvider client={queryClient}>
 			{/* Automatic SEO tags based on route - configured in lib/config/seo.js */}
 			<SEO />
+			{/* Track visitors with browser fingerprinting */}
+			<VisitorTracker />
 			{AppComponent}
 			<ToastContainer
 				position="top-right"
